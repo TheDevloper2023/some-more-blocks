@@ -6,10 +6,10 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.seface.somemoreblocks.registries.SMBBlocks;
 
 import java.util.concurrent.CompletableFuture;
@@ -34,7 +34,7 @@ public class SMBNetherAdvancementsProvider extends FabricAdvancementProvider {
   }
 
   private void verySeriousDedication() {
-    ResourceLocation parentPath = ResourceLocation.withDefaultNamespace("nether/obtain_ancient_debris");
+    Identifier parentPath = Identifier.withDefaultNamespace("nether/obtain_ancient_debris");
     Advancement.Builder.advancement()
       .parent(Advancement.Builder.advancement().build(parentPath))
       .display(SMBBlocks.CUT_NETHERITE.get(), Component.translatable("advancements.somemoreblocks.nether.obtain_cut_netherite.title"), Component.translatable("advancements.somemoreblocks.nether.obtain_cut_netherite.description"), null, AdvancementType.CHALLENGE, true, true, false)

@@ -1,15 +1,14 @@
 package net.seface.somemoreblocks;
 
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.StairBlock;
 import net.seface.somemoreblocks.platform.PlatformServices;
 import net.seface.somemoreblocks.registries.*;
 import net.seface.somemoreblocks.tags.SMBBlockTags;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +34,7 @@ public class SomeMoreBlocks {
     SMBDataComponentTypes.init();
     SMBBlocks.init();
     SMBItems.init();
+    SMBRecipeSerializers.init();
     SMBBlockTags.init();
     SMBFeatures.init();
     SMBCreativeTabs.init();
@@ -53,19 +53,19 @@ public class SomeMoreBlocks {
    * Create a generic identifier with Mod ID and custom path.<br />
    * @param path The identifier path.
    */
-  public static ResourceLocation id(String path) {
-    return ResourceLocation.fromNamespaceAndPath(ID, path);
+  public static Identifier id(String path) {
+    return Identifier.fromNamespaceAndPath(ID, path);
   }
 
   /**
    * Create a generic key with Mod ID and custom path.<br />
    * @param path The resource key path.
    */
-  public static <T> ResourceKey<T> key(ResourceKey<? extends Registry<T>> registry, String path) {
+  public static <T> ResourceKey<T> key(ResourceKey<@NotNull ? extends Registry<T>> registry, String path) {
     return ResourceKey.create(registry, SomeMoreBlocks.id(path));
   }
 
-  public static <T> TagKey<T> tagKey(ResourceKey<Registry<T>> registryType, String path) {
+  public static <T> TagKey<T> tagKey(ResourceKey<@NotNull Registry<T>> registryType, String path) {
     return TagKey.create(registryType, SomeMoreBlocks.id(path));
   }
 
@@ -82,10 +82,9 @@ public class SomeMoreBlocks {
 
   private static void registerBlockRenders() {
     ChunkSectionLayer cutout = ChunkSectionLayer.CUTOUT;
-    ChunkSectionLayer cutoutMipped = ChunkSectionLayer.CUTOUT_MIPPED;
     ChunkSectionLayer translucent = ChunkSectionLayer.TRANSLUCENT;
 
-    PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.AZALEA_LEAF_LITTER.get(), cutoutMipped);
+    PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.AZALEA_LEAF_LITTER.get(), cutout);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.BIG_LILY_PAD.get(), cutout);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.BIRCH_LEAF_LITTER.get(), cutout);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.BLACK_STAINED_TILED_GLASS.get(), translucent);
@@ -105,14 +104,14 @@ public class SomeMoreBlocks {
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.CYAN_STAINED_TILED_GLASS_PANE.get(), translucent);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.DIAMOND_GRATE.get(), cutout);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.DUNE_GRASS.get(), cutout);
-    PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.FLOWERING_AZALEA_LEAF_LITTER.get(), cutoutMipped);
+    PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.FLOWERING_AZALEA_LEAF_LITTER.get(), cutout);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.GRAY_STAINED_TILED_GLASS.get(), translucent);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.GRAY_STAINED_TILED_GLASS_PANE.get(), translucent);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.GREEN_STAINED_TILED_GLASS.get(), translucent);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.GREEN_STAINED_TILED_GLASS_PANE.get(), translucent);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.IRON_GRATE.get(), cutout);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.LARGE_SNOW_FERN.get(), cutout);
-    PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.LEAF_LITTER.get(), cutoutMipped);
+    PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.LEAF_LITTER.get(), cutout);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.LIGHT_BLUE_STAINED_TILED_GLASS.get(), translucent);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.LIGHT_BLUE_STAINED_TILED_GLASS_PANE.get(), translucent);
     PlatformServices.REGISTRY.setBlockRenderType(SMBBlocks.LIGHT_GRAY_STAINED_TILED_GLASS.get(), translucent);

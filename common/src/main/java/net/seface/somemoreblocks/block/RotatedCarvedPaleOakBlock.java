@@ -3,6 +3,7 @@ package net.seface.somemoreblocks.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -28,12 +29,9 @@ public class RotatedCarvedPaleOakBlock extends RotatedPillarBlock {
   }
 
   @Override
-  protected void onPlace(BlockState $$0, Level level, BlockPos $$2, BlockState $$3, boolean $$4) {
-    this.registerDefaultState(
-      (this.stateDefinition.any())
-        .setValue(AXIS, Direction.Axis.Y)
-        .setValue(MOON_PHASE, level.getMoonPhase())
-    );
+  public BlockState getStateForPlacement(BlockPlaceContext placeContext) {
+    return this.defaultBlockState().setValue(AXIS, placeContext.getClickedFace().getAxis())
+      .setValue(MOON_PHASE, placeContext.getLevel().getSkyDarken());
   }
 
   @Override

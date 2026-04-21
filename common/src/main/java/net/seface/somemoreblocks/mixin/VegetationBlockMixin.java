@@ -33,7 +33,7 @@ public abstract class VegetationBlockMixin extends Block {
 
   @Override
   public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-    if (level.getGameRules().getBoolean(SMBGameRules.RULE_SNOW_ACCUMULATE)) {
+    if (level.getGameRules().get(SMBGameRules.RULE_SNOW_ACCUMULATE.get())) {
       this.SMB$turnIntoNormalVariation(state, level, pos);
       this.SMB$turnIntoSnowVariation(state, level, pos);
     }

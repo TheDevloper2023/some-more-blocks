@@ -43,7 +43,7 @@ public class Main implements DataGeneratorEntrypoint {
     pack.addProvider(SMBFurnaceFuelsDataMapProvider::new);
     pack.addProvider(SMBCompostablesDataMapProvider::new);
     pack.addProvider(SMBForgeBiomeModifierProvider::new);
-    pack.addProvider((output, registriesFuture) -> new SMBForgeBiomeModifierProvider(output, registriesFuture).setForgedModLoader(ForgedModLoaders.NEOFORGE));
+    pack.addProvider((output, registriesFuture) -> new SMBForgeBiomeModifierProvider(output, registriesFuture, ForgedModLoaders.NEOFORGE));
   }
 
   @Override

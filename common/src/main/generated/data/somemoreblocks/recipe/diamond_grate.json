@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "diamond_grate",
   "key": {
     "M": "minecraft:diamond_block"
   },

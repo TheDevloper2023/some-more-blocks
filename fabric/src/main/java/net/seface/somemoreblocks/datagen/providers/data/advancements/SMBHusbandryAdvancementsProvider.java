@@ -6,7 +6,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentExactPredicate;
@@ -14,7 +14,7 @@ import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.advancements.packs.VanillaHusbandryAdvancements;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -73,8 +73,8 @@ public class SMBHusbandryAdvancementsProvider extends FabricAdvancementProvider 
    * @param usedBy The item to interact on block.
    */
   private void waxOnOrOff(String parent, ItemLike displayItem, String name, List<Block> usableOn, List<Item> usedBy) {
-    ResourceLocation parentPath = ResourceLocation.withDefaultNamespace("husbandry/" + parent);
-    ResourceLocation outputPath = ResourceLocation.withDefaultNamespace("husbandry/" + name);
+    Identifier parentPath = Identifier.withDefaultNamespace("husbandry/" + parent);
+    Identifier outputPath = Identifier.withDefaultNamespace("husbandry/" + name);
 
     this.generator.accept(
       Advancement.Builder.advancement()
@@ -91,7 +91,7 @@ public class SMBHusbandryAdvancementsProvider extends FabricAdvancementProvider 
   }
 
   private void withOurPoweredCombined() {
-    ResourceLocation parentPath = ResourceLocation.withDefaultNamespace("husbandry/froglights");
+    Identifier parentPath = Identifier.withDefaultNamespace("husbandry/froglights");
     Advancement.Builder.advancement()
       .parent(Advancement.Builder.advancement().build(parentPath))
       .display(SMBBlocks.VERDANT_REDSTONE_FROGLIGHT.get(), Component.translatable("advancements.somemoreblocks.husbandry.redstone_froglights.title"), Component.translatable("advancements.somemoreblocks.husbandry.redstone_froglights.description"), null, AdvancementType.CHALLENGE, true, true, false)
@@ -113,7 +113,7 @@ public class SMBHusbandryAdvancementsProvider extends FabricAdvancementProvider 
           .withComponents(new DataComponentMatchers(DataComponentExactPredicate.allOf(DataComponentMap.builder().set(SMBDataComponentTypes.MOON_PHASE.get(), i).build()), new HashMap<>())));
     }
 
-    ResourceLocation parentPath = ResourceLocation.withDefaultNamespace("husbandry/root");
+    Identifier parentPath = Identifier.withDefaultNamespace("husbandry/root");
     Advancement.Builder.advancement()
       .parent(Advancement.Builder.advancement().build(parentPath))
       .display(SMBBlocks.CARVED_PALE_OAK_LOG.get(), Component.translatable("advancements.somemoreblocks.husbandry.carved_pale_woods.title"), Component.translatable("advancements.somemoreblocks.husbandry.carved_pale_woods.description"), null, AdvancementType.CHALLENGE, true, true, false)

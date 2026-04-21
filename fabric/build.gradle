@@ -9,11 +9,7 @@ node {
   download = true
 }
 
-repositories {
-  flatDir {
-    dirs "libs"
-  }
-}
+repositories {}
 
 dependencies {
   minecraft "com.mojang:minecraft:${minecraft_version}"
@@ -21,7 +17,7 @@ dependencies {
 
   modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
   modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-  modImplementation files("libs/extended-fabric-data-generation-0.0.3-SNAPSHOT-dev.jar")
+  modImplementation "net.sefacestudios:extended-fabric-datagen:${minecraft_version}-${ext_fabric_datagen_version}"
 }
 
 fabricApi {

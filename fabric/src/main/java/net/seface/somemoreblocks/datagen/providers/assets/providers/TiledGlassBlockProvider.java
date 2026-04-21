@@ -12,7 +12,7 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.client.renderer.block.model.multipart.Condition;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -24,11 +24,11 @@ import java.util.function.Consumer;
 public class TiledGlassBlockProvider {
   private final Block block;
   private final TextureMapping mainTextureMap;
-  private final BiConsumer<ResourceLocation, ModelInstance> modelOutput;
+  private final BiConsumer<Identifier, ModelInstance> modelOutput;
   private final ItemModelOutput itemModelOutput;
   private final Consumer<BlockModelDefinitionGenerator> blockStateOutput;
 
-  public TiledGlassBlockProvider(Block block, BiConsumer<ResourceLocation, ModelInstance> modelOutput, ItemModelOutput itemModelOutput, Consumer<BlockModelDefinitionGenerator> blockStateOutput) {
+  public TiledGlassBlockProvider(Block block, BiConsumer<Identifier, ModelInstance> modelOutput, ItemModelOutput itemModelOutput, Consumer<BlockModelDefinitionGenerator> blockStateOutput) {
     this.block = block;
     this.mainTextureMap = TextureMapping.cube(block);
     this.modelOutput = modelOutput;
@@ -37,7 +37,7 @@ public class TiledGlassBlockProvider {
   }
 
   public TiledGlassBlockProvider fullBlock() {
-    ResourceLocation model = ModelTemplates.CUBE_ALL.create(this.block, this.mainTextureMap, this.modelOutput);
+    Identifier model = ModelTemplates.CUBE_ALL.create(this.block, this.mainTextureMap, this.modelOutput);
     this.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(this.block, BlockModelGenerators.plainVariant(model)));
 
     return this;
@@ -46,20 +46,20 @@ public class TiledGlassBlockProvider {
   public TiledGlassBlockProvider pane(Block tiledGlassPane, Block topBottomBlockPane) {
     TextureMapping textureMapping = TextureMapping.pane(this.block, topBottomBlockPane);
 
-    ResourceLocation post = ModelTemplates.STAINED_GLASS_PANE_POST.create(tiledGlassPane, textureMapping, this.modelOutput);
-    ResourceLocation side = ModelTemplates.STAINED_GLASS_PANE_SIDE.create(tiledGlassPane, textureMapping, this.modelOutput);
-    ResourceLocation sideAlt = ModelTemplates.STAINED_GLASS_PANE_SIDE_ALT.create(tiledGlassPane, textureMapping, this.modelOutput);
-    ResourceLocation noSide = ModelTemplates.STAINED_GLASS_PANE_NOSIDE.create(tiledGlassPane, textureMapping, this.modelOutput);
-    ResourceLocation noSideAlt = ModelTemplates.STAINED_GLASS_PANE_NOSIDE_ALT.create(tiledGlassPane, textureMapping, this.modelOutput);
+    Identifier post = ModelTemplates.STAINED_GLASS_PANE_POST.create(tiledGlassPane, textureMapping, this.modelOutput);
+    Identifier side = ModelTemplates.STAINED_GLASS_PANE_SIDE.create(tiledGlassPane, textureMapping, this.modelOutput);
+    Identifier sideAlt = ModelTemplates.STAINED_GLASS_PANE_SIDE_ALT.create(tiledGlassPane, textureMapping, this.modelOutput);
+    Identifier noSide = ModelTemplates.STAINED_GLASS_PANE_NOSIDE.create(tiledGlassPane, textureMapping, this.modelOutput);
+    Identifier noSideAlt = ModelTemplates.STAINED_GLASS_PANE_NOSIDE_ALT.create(tiledGlassPane, textureMapping, this.modelOutput);
 
-    ResourceLocation item = ModelTemplates.FLAT_ITEM.create(tiledGlassPane, TextureMapping.layer0(this.block), this.modelOutput);
+    Identifier item = ModelTemplates.FLAT_ITEM.create(tiledGlassPane, TextureMapping.layer0(this.block), this.modelOutput);
 
     this.itemModelOutput.accept(tiledGlassPane.asItem(), ItemModelUtils.plainModel(item));
     this.blockStateOutput.accept(createPane(tiledGlassPane, post, side, sideAlt, noSide, noSideAlt));
     return this;
   }
 
-  public static BlockModelDefinitionGenerator createPane(Block block, ResourceLocation post, ResourceLocation side, ResourceLocation sideAlt, ResourceLocation noSide, ResourceLocation noSideAlt) {
+  public static BlockModelDefinitionGenerator createPane(Block block, Identifier post, Identifier side, Identifier sideAlt, Identifier noSide, Identifier noSideAlt) {
     MultiVariant mvPost = BlockModelGenerators.plainVariant(post);
     MultiVariant mvSide = BlockModelGenerators.plainVariant(side);
     MultiVariant mvSideAlt = BlockModelGenerators.plainVariant(sideAlt);

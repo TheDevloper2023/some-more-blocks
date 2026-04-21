@@ -1,19 +1,23 @@
 package net.seface.somemoreblocks.platform.registry;
 
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.gamerules.GameRule;
+import net.minecraft.world.level.gamerules.GameRuleCategory;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.material.PushReaction;
 import net.seface.somemoreblocks.SomeMoreBlocks;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
@@ -71,6 +75,8 @@ public interface PlatformRegistry {
    */
   void setBlockRenderType(Block block, ChunkSectionLayer renderType);
 
+  <T extends Recipe<?>> PlatformRegistryObject<RecipeSerializer<@NotNull T>> registerRecipeType(String path, RecipeSerializer<@NotNull T> serializer);
+
   /**
    * Main method to register a Block and BlockItem.
    * @param path The identifier path.
@@ -102,5 +108,5 @@ public interface PlatformRegistry {
       () -> new FlowerPotBlock(plant.get(), properties.setId(SomeMoreBlocks.key(Registries.BLOCK, path))), false);
   }
 
-  GameRules.Key<GameRules.BooleanValue> registerBooleanGameRule(String id, GameRules.Category category, boolean defaultValue);
+  PlatformRegistryObject<GameRule<@NotNull Boolean>> registerBooleanGameRule(String path, GameRuleCategory category, boolean defaultValue);
 }

@@ -1,7 +1,6 @@
 package net.seface.somemoreblocks.block;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -18,12 +17,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.seface.somemoreblocks.registries.SMBBlocks;
 import net.seface.somemoreblocks.tags.SMBBlockTags;
 
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class CloverBlock extends VegetationBlock implements BonemealableBlock, SegmentableBlock {

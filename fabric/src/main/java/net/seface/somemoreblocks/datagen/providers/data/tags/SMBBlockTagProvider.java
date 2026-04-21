@@ -698,7 +698,8 @@ public class SMBBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     this.valueLookupBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
       .add(
         SMBBlocks.LEAF_LITTER.get(), SMBBlocks.BIRCH_LEAF_LITTER.get(), SMBBlocks.SPRUCE_LEAF_LITTER.get(),
-        SMBBlocks.PALE_OAK_LEAF_LITTER.get(), SMBBlocks.AZALEA_LEAF_LITTER.get(), SMBBlocks.FLOWERING_AZALEA_LEAF_LITTER.get())
+        SMBBlocks.PALE_OAK_LEAF_LITTER.get(), SMBBlocks.AZALEA_LEAF_LITTER.get(), SMBBlocks.FLOWERING_AZALEA_LEAF_LITTER.get(),
+        SMBBlocks.CLOVER.get(), SMBBlocks.NETHER_CLOVER.get())
       .setReplace(false);
   }
 }

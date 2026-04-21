@@ -5,6 +5,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -644,7 +645,7 @@ public class SMBBlocks {
   public static final PlatformRegistryObject<Block> CRACKED_RESIN_TILES = PlatformServices.REGISTRY.registerBlock("cracked_resin_tiles", () -> new Block(BlockBehaviour.Properties.ofFullCopy(SMBBlocks.RESIN_TILES.get()).setId(SomeMoreBlocks.key(Registries.BLOCK, "cracked_resin_tiles"))));
   public static final PlatformRegistryObject<Block> SMOOTH_RESIN = PlatformServices.REGISTRY.registerBlock("smooth_resin", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.RESIN_BRICKS).setId(SomeMoreBlocks.key(Registries.BLOCK, "smooth_resin"))));
   public static final PlatformRegistryObject<Block> SMOOTH_RESIN_SLAB = PlatformServices.REGISTRY.registerBlock("smooth_resin_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RESIN_BRICKS).setId(SomeMoreBlocks.key(Registries.BLOCK, "smooth_resin_slab"))));
-  public static final PlatformRegistryObject<Block> REDSTONE_SHROOMLIGHT = PlatformServices.REGISTRY.registerBlock("redstone_shroomlight", () -> new RedstoneLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SHROOMLIGHT).setId(SomeMoreBlocks.key(Registries.BLOCK, "redstone_shroomlight"))));
+  public static final PlatformRegistryObject<Block> REDSTONE_SHROOMLIGHT = PlatformServices.REGISTRY.registerBlock("redstone_shroomlight", () -> new RedstoneLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SHROOMLIGHT).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 15 : 0).setId(SomeMoreBlocks.key(Registries.BLOCK, "redstone_shroomlight"))));
   public static final PlatformRegistryObject<Block> REDSTONE_SEA_LANTERN = PlatformServices.REGISTRY.registerBlock("redstone_sea_lantern", () -> new RedstoneLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).setId(SomeMoreBlocks.key(Registries.BLOCK, "redstone_sea_lantern"))));
   public static final PlatformRegistryObject<Block> PALE_ROSE_BUSH = PlatformServices.REGISTRY.registerBlock("pale_rose_bush", () -> new TallFlowerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH).setId(SomeMoreBlocks.key(Registries.BLOCK, "pale_rose_bush"))));
   public static final PlatformRegistryObject<Block> CARVED_MUSHROOM_STEM = PlatformServices.REGISTRY.registerBlock("carved_mushroom_stem", () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUSHROOM_STEM).setId(SomeMoreBlocks.key(Registries.BLOCK, "carved_mushroom_stem"))));

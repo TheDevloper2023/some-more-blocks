@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -30,11 +30,11 @@ import java.util.function.Consumer;
 public class CarvedWoodBlockProvider {
   private final Block block;
   private final TextureMapping mainTextureMap;
-  private final BiConsumer<ResourceLocation, ModelInstance> modelOutput;
+  private final BiConsumer<Identifier, ModelInstance> modelOutput;
   private final ItemModelOutput itemModelOutput;
   private final Consumer<BlockModelDefinitionGenerator> blockStateOutput;
 
-  public CarvedWoodBlockProvider(Block block, BiConsumer<ResourceLocation, ModelInstance> modelOutput, ItemModelOutput itemModelOutput, Consumer<BlockModelDefinitionGenerator> blockStateOutput) {
+  public CarvedWoodBlockProvider(Block block, BiConsumer<Identifier, ModelInstance> modelOutput, ItemModelOutput itemModelOutput, Consumer<BlockModelDefinitionGenerator> blockStateOutput) {
     this.block = block;
     this.mainTextureMap = TextureMapping.logColumn(block);
     this.modelOutput = modelOutput;
@@ -46,8 +46,8 @@ public class CarvedWoodBlockProvider {
     TextureMapping textureMapping = this.mainTextureMap
       .copyAndUpdate(TextureSlot.END, ModelLocationUtils.getModelLocation(topBottomBlock).withSuffix("_top"));
 
-    ResourceLocation verticalModel = ModelTemplates.CUBE_COLUMN.create(block, textureMapping, this.modelOutput);
-    //ResourceLocation horizontalModel = ModelTemplates.CUBE_COLUMN_HORIZONTAL.create(block, textureMapping, this.modelOutput);
+    Identifier verticalModel = ModelTemplates.CUBE_COLUMN.create(block, textureMapping, this.modelOutput);
+    //Identifier horizontalModel = ModelTemplates.CUBE_COLUMN_HORIZONTAL.create(block, textureMapping, this.modelOutput);
 
     this.blockStateOutput.accept(createAxisAlignedPillarBlock(block, BlockModelGenerators.plainVariant(verticalModel)));
     return this;
@@ -63,14 +63,14 @@ public class CarvedWoodBlockProvider {
         .copyAndUpdate(TextureSlot.SIDE, this.mainTextureMap.get(TextureSlot.SIDE).withSuffix(suffix))
         .copyAndUpdate(TextureSlot.END, ModelLocationUtils.getModelLocation(topBottomBlock).withSuffix("_top"));
 
-      ResourceLocation verticalModel = ModelTemplates.CUBE_COLUMN.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
-      ResourceLocation horizontalModel =  ModelTemplates.CUBE_COLUMN_HORIZONTAL.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
+      Identifier verticalModel = ModelTemplates.CUBE_COLUMN.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
+      Identifier horizontalModel =  ModelTemplates.CUBE_COLUMN_HORIZONTAL.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
 
       overrides[i] = ItemModelUtils.override(ItemModelUtils.plainModel(verticalModel), i);
     }
 
-    ResourceLocation verticalModel = BuiltInRegistries.BLOCK.getKey(block).withPrefix("block/");
-    ResourceLocation horizontalModel = BuiltInRegistries.BLOCK.getKey(block).withPrefix("block/").withSuffix("_horizontal");
+    Identifier verticalModel = BuiltInRegistries.BLOCK.getKey(block).withPrefix("block/");
+    Identifier horizontalModel = BuiltInRegistries.BLOCK.getKey(block).withPrefix("block/").withSuffix("_horizontal");
     ItemModel.Unbaked itemModel = ItemModelUtils.rangeSelect(new MoonPhaseProperty(), overrides[0].model(), overrides);
 
     this.itemModelOutput.accept(block.asItem(), itemModel);
@@ -80,7 +80,7 @@ public class CarvedWoodBlockProvider {
 
   public CarvedWoodBlockProvider wood(Block block) {
     TextureMapping textureMapping = this.mainTextureMap.copyAndUpdate(TextureSlot.END, this.mainTextureMap.get(TextureSlot.SIDE));
-    ResourceLocation model = ModelTemplates.CUBE_COLUMN
+    Identifier model = ModelTemplates.CUBE_COLUMN
       .create(ModelLocationUtils.getModelLocation(block), textureMapping, this.modelOutput);
 
     this.blockStateOutput.accept(createAxisAlignedPillarBlock(block, BlockModelGenerators.plainVariant(model)));
@@ -93,17 +93,17 @@ public class CarvedWoodBlockProvider {
     for (int i = 0; i <= RotatedCarvedPaleOakBlock.MAX_MOON_PHASE; i++) {
       String suffix = "_" + i;
 
-      ResourceLocation textureLocation = this.mainTextureMap.get(TextureSlot.SIDE).withSuffix(suffix);
+      Identifier textureLocation = this.mainTextureMap.get(TextureSlot.SIDE).withSuffix(suffix);
       TextureMapping textureMapping = this.mainTextureMap
         .copyAndUpdate(TextureSlot.SIDE, textureLocation)
         .copyAndUpdate(TextureSlot.END, textureLocation);
 
-      ResourceLocation model = ModelTemplates.CUBE_COLUMN.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
+      Identifier model = ModelTemplates.CUBE_COLUMN.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
 
       overrides[i] = ItemModelUtils.override(ItemModelUtils.plainModel(model), i);
     }
 
-    ResourceLocation model = ModelLocationUtils.getModelLocation(block);
+    Identifier model = ModelLocationUtils.getModelLocation(block);
     ItemModel.Unbaked itemModel = ItemModelUtils.rangeSelect(new MoonPhaseProperty(), overrides[0].model(), overrides);
 
     this.itemModelOutput.accept(block.asItem(), itemModel);
@@ -111,7 +111,7 @@ public class CarvedWoodBlockProvider {
     return this;
   }
 
-  public static BlockModelDefinitionGenerator createRotatedPillarWithHorizontalAndMoonPhaseVariant(Block block, ResourceLocation vertical, ResourceLocation horizontal) {
+  public static BlockModelDefinitionGenerator createRotatedPillarWithHorizontalAndMoonPhaseVariant(Block block, Identifier vertical, Identifier horizontal) {
     PropertyDispatch.C2<MultiVariant, Direction.Axis, Integer> c2 = PropertyDispatch.initial(BlockStateProperties.AXIS, RotatedCarvedPaleOakBlock.MOON_PHASE);
 
     for (Direction.Axis axis : Direction.Axis.values()) {
@@ -132,10 +132,10 @@ public class CarvedWoodBlockProvider {
           );
 
         if (axis == Direction.Axis.X || axis == Direction.Axis.Z) {
-          variant.with(VariantMutator.X_ROT.withValue(Quadrant.R90));
+          variant = variant.with(VariantMutator.X_ROT.withValue(Quadrant.R90));
 
           if (axis == Direction.Axis.X) {
-            variant.with(VariantMutator.Y_ROT.withValue(Quadrant.R90));
+            variant = variant.with(VariantMutator.Y_ROT.withValue(Quadrant.R90));
           }
         }
 

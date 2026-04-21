@@ -47,7 +47,7 @@ subprojects {
   }
 
   jar {
-    exclude(".cache/**", "**/*/README.md", "**/*/.gitkeep", "**/*/lang/*/*.json", "**/*/lang/deprecated_strings.json", "**/*/lang/credits.json")
+    exclude(".cache/**", "**/*/README.md", "**/*/.gitkeep", "**/*/lang/*/*.json", "**/*/lang/deprecated_strings.json", "**/*/lang/translations-credits.json")
 
     if (project.name != "forge") {
       exclude("**/forge/**")

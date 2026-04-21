@@ -64,7 +64,7 @@ public abstract class LeafLitterBlockMixin extends VegetationBlock implements Se
 
   @Override
   protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-    if (level.getGameRules().getBoolean(SMBGameRules.RULE_DRY_LEAF_LITTER)) {
+    if (level.getGameRules().get(SMBGameRules.RULE_DRY_LEAF_LITTER.get())) {
       if (random.nextInt(25) == 0) {
         level.setBlock(pos, Blocks.LEAF_LITTER.withPropertiesOf(state), Block.UPDATE_ALL);
       }

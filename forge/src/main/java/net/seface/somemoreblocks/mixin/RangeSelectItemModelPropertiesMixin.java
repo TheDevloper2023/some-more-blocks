@@ -3,7 +3,7 @@ package net.seface.somemoreblocks.mixin;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperties;
 import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperty;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 import net.seface.somemoreblocks.item.properties.numeric.BucketVolumeProperty;
 import net.seface.somemoreblocks.item.properties.numeric.MoonPhaseProperty;
@@ -20,7 +20,7 @@ public abstract class RangeSelectItemModelPropertiesMixin {
 
   @Shadow
   @Final
-  private static ExtraCodecs.LateBoundIdMapper<ResourceLocation, MapCodec<? extends RangeSelectItemModelProperty>> ID_MAPPER;
+  private static ExtraCodecs.LateBoundIdMapper<Identifier, MapCodec<? extends RangeSelectItemModelProperty>> ID_MAPPER;
 
   @Inject(method = "bootstrap", at = @At(value = "RETURN"))
   private static void bootstrapMixin(CallbackInfo ci) {

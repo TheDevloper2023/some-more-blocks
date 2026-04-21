@@ -3,7 +3,7 @@ package net.seface.somemoreblocks.platform.registry;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import lombok.Getter;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Map;
 import java.util.Optional;
@@ -12,12 +12,12 @@ import java.util.Set;
 public class BidirectionalRegistryObject<K, V> {
 
   @Getter
-  private final ResourceLocation id;
+  private final Identifier id;
 
   private final BiMap<K, V> next;
   private final Map<V, K> previous;
 
-  private BidirectionalRegistryObject(ResourceLocation identifier) {
+  private BidirectionalRegistryObject(Identifier identifier) {
     this.id = identifier;
     this.next = HashBiMap.create();
     this.previous = this.next.inverse();
@@ -72,7 +72,7 @@ public class BidirectionalRegistryObject<K, V> {
     return this.next.values();
   }
 
-  public static <K, V> BidirectionalRegistryObject<K, V> create(ResourceLocation id) {
+  public static <K, V> BidirectionalRegistryObject<K, V> create(Identifier id) {
     return new BidirectionalRegistryObject<>(id);
   }
 }

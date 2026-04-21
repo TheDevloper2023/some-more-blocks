@@ -5,13 +5,13 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.advancements.packs.VanillaHusbandryAdvancements;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources .Identifier;
 import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -46,10 +46,10 @@ public class SMBAdventureAdvancementsProvider extends FabricAdvancementProvider 
   }
 
   private void aGrateTimeWaste() {
-    ResourceLocation parentPath = ResourceLocation.withDefaultNamespace("adventure/minecraft_trials_edition");
+    Identifier parentPath = Identifier.withDefaultNamespace("adventure/minecraft_trials_edition");
     Advancement.Builder.advancement()
       .parent(Advancement.Builder.advancement().build(parentPath))
-      .display(SMBBlocks.NETHERITE_GRATE.get(), Component.translatable("advancements.somemoreblocks.adventure.grates.title"), Component.translatable("advancements.somemoreblocks.adventure.grates.description"), (ResourceLocation)null, AdvancementType.CHALLENGE, true, true, false)
+      .display(SMBBlocks.NETHERITE_GRATE.get(), Component.translatable("advancements.somemoreblocks.adventure.grates.title"), Component.translatable("advancements.somemoreblocks.adventure.grates.description"), (Identifier)null, AdvancementType.CHALLENGE, true, true, false)
       .addCriterion("grates",
         InventoryChangeTrigger.TriggerInstance.hasItems(
           SMBBlocks.IRON_GRATE.get(),

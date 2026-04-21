@@ -13,21 +13,28 @@ import net.seface.somemoreblocks.tags.SMBBiomeTags;
 import net.seface.somemoreblocks.tags.SMBConfiguredFeature;
 import net.sefacestudios.datagen_extras.modifiers.ForgedBiomeModifier;
 import net.sefacestudios.datagen_extras.modifiers.ForgedBiomeModifierTypes;
-import net.sefacestudios.datagen_extras.provider.forge.ForgeBiomeModifierProvider;
+import net.sefacestudios.datagen_extras.provider.ForgifiedBiomeModifierProvider;
+import net.sefacestudios.datagen_extras.utils.ForgedModLoaders;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class SMBForgeBiomeModifierProvider extends ForgeBiomeModifierProvider {
+public class SMBForgeBiomeModifierProvider extends ForgifiedBiomeModifierProvider {
   private Consumer<ForgedBiomeModifier> consumer;
+  protected ForgedModLoaders loader;
 
   public SMBForgeBiomeModifierProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
-    super(output, registryLookup);
+    super(output, registryLookup, ForgedModLoaders.FORGE);
+  }
+
+  public SMBForgeBiomeModifierProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ForgedModLoaders modLoader) {
+    super(output, registryLookup, modLoader);
   }
 
   @Override
-  public void generate(HolderLookup.Provider lookup, Consumer<ForgedBiomeModifier> gen) {
+  public void generate(HolderLookup.Provider lookup, Consumer<ForgedBiomeModifier> gen, ForgedModLoaders loader) {
     this.consumer = gen;
+    this.loader = loader;
 
     this.vegetalDecoration(SMBConfiguredFeature.NONE_BIG_LILY_PAD, SMBBiomeTags.GENERATES_BIG_LILY_PAD);
     this.vegetalDecoration(SMBConfiguredFeature.PATCH_CACTUS_PLANTS, SMBBiomeTags.GENERATES_CACTUS_PLANTS);

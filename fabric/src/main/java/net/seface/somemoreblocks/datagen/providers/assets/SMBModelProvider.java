@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.core.Direction;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.random.Weighted;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
@@ -42,7 +42,7 @@ public class SMBModelProvider extends FabricModelProvider {
   private BlockModelGenerators blockModelGenerators;
   private Map<Block, TexturedModel> texturedModels;
 
-  public BiConsumer<ResourceLocation, ModelInstance> modelOutput;
+  public BiConsumer<Identifier, ModelInstance> modelOutput;
   public Consumer<BlockModelDefinitionGenerator> blockStateOutput;
   public ItemModelOutput itemModelOutput;
 
@@ -408,7 +408,7 @@ public class SMBModelProvider extends FabricModelProvider {
     Variant variant = new Variant(ModelLocationUtils.getModelLocation(block));
     Variant variantWithLotus = new Variant(ModelLocationUtils.getModelLocation(block).withSuffix("_with_lotus"));
 
-    ResourceLocation itemModel = ModelTemplates.FLAT_ITEM.create(block.asItem(), TextureMapping.layer0(block), this.modelOutput);
+    Identifier itemModel = ModelTemplates.FLAT_ITEM.create(block.asItem(), TextureMapping.layer0(block), this.modelOutput);
 
     List<Weighted<Variant>> variants = new ArrayList<>();
 
@@ -435,7 +435,7 @@ public class SMBModelProvider extends FabricModelProvider {
       TextureMapping textureMapping = TextureMapping.defaultTexture(block)
         .copyAndUpdate(TextureSlot.TEXTURE, ModelLocationUtils.getModelLocation(block).withSuffix(suffix));
 
-      ResourceLocation model = SMBModelTemplates.SQUARE_HORIZONTAL.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
+      Identifier model = SMBModelTemplates.SQUARE_HORIZONTAL.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
 
       for (Direction facing : Direction.Plane.HORIZONTAL) {
         MultiVariant variant = new MultiVariant(WeightedList.of(new Variant(model)))
@@ -458,7 +458,7 @@ public class SMBModelProvider extends FabricModelProvider {
       }
     }
 
-    ResourceLocation itemModel = ModelTemplates.FLAT_ITEM
+    Identifier itemModel = ModelTemplates.FLAT_ITEM
       .create(block.asItem(), TextureMapping.layer0(block.asItem()), this.modelOutput);
 
     this.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(itemModel));
@@ -477,9 +477,9 @@ public class SMBModelProvider extends FabricModelProvider {
       String suffix = i == 0 ? "" : "_" + (i - 1);
       int threshold = i == 0 ? 0 : units * i;
 
-      ResourceLocation identifier = ModelLocationUtils.getModelLocation(item).withSuffix(suffix);
+      Identifier identifier = ModelLocationUtils.getModelLocation(item).withSuffix(suffix);
       TextureMapping textureMapping = TextureMapping.layer0(item).put(TextureSlot.LAYER0, identifier);
-      ResourceLocation itemModel = ModelTemplates.FLAT_ITEM.create(identifier, textureMapping, this.modelOutput);
+      Identifier itemModel = ModelTemplates.FLAT_ITEM.create(identifier, textureMapping, this.modelOutput);
 
       overrides[i] = ItemModelUtils.override(ItemModelUtils.plainModel(itemModel), threshold);
     }
@@ -510,16 +510,16 @@ public class SMBModelProvider extends FabricModelProvider {
 
   public final void createFlowerBedWithItem(Block block, Item item, boolean isNetherVersion) {
     this.blockModelGenerators.registerSimpleFlatItemModel(item);
-    ResourceLocation resourceLocation = TexturedModel.createDefault(TextureMapping::flowerbed, !isNetherVersion ? SMBModelTemplates.TINTED_FLOWERBED_1 : SMBModelTemplates.NETHER_FLOWERBED_1).create(block, this.modelOutput);
-    ResourceLocation resourceLocation2 = TexturedModel.createDefault(TextureMapping::flowerbed, !isNetherVersion ? SMBModelTemplates.TINTED_FLOWERBED_2 : SMBModelTemplates.NETHER_FLOWERBED_2).create(block, this.modelOutput);
-    ResourceLocation resourceLocation3 = TexturedModel.createDefault(TextureMapping::flowerbed, !isNetherVersion ? SMBModelTemplates.TINTED_FLOWERBED_3 : SMBModelTemplates.NETHER_FLOWERBED_3).create(block, this.modelOutput);
-    ResourceLocation resourceLocation4 = TexturedModel.createDefault(TextureMapping::flowerbed, !isNetherVersion ? SMBModelTemplates.TINTED_FLOWERBED_4 : SMBModelTemplates.NETHER_FLOWERBED_4).create(block, this.modelOutput);
+    Identifier Identifier = TexturedModel.createDefault(TextureMapping::flowerbed, !isNetherVersion ? SMBModelTemplates.TINTED_FLOWERBED_1 : SMBModelTemplates.NETHER_FLOWERBED_1).create(block, this.modelOutput);
+    Identifier Identifier2 = TexturedModel.createDefault(TextureMapping::flowerbed, !isNetherVersion ? SMBModelTemplates.TINTED_FLOWERBED_2 : SMBModelTemplates.NETHER_FLOWERBED_2).create(block, this.modelOutput);
+    Identifier Identifier3 = TexturedModel.createDefault(TextureMapping::flowerbed, !isNetherVersion ? SMBModelTemplates.TINTED_FLOWERBED_3 : SMBModelTemplates.NETHER_FLOWERBED_3).create(block, this.modelOutput);
+    Identifier Identifier4 = TexturedModel.createDefault(TextureMapping::flowerbed, !isNetherVersion ? SMBModelTemplates.TINTED_FLOWERBED_4 : SMBModelTemplates.NETHER_FLOWERBED_4).create(block, this.modelOutput);
 
     this.blockModelGenerators.createSegmentedBlock(block,
-      BlockModelGenerators.plainVariant(resourceLocation), BlockModelGenerators.FLOWER_BED_MODEL_1_SEGMENT_CONDITION,
-      BlockModelGenerators.plainVariant(resourceLocation2), BlockModelGenerators.FLOWER_BED_MODEL_2_SEGMENT_CONDITION,
-      BlockModelGenerators.plainVariant(resourceLocation3), BlockModelGenerators.FLOWER_BED_MODEL_3_SEGMENT_CONDITION,
-      BlockModelGenerators.plainVariant(resourceLocation4), BlockModelGenerators.FLOWER_BED_MODEL_4_SEGMENT_CONDITION
+      BlockModelGenerators.plainVariant(Identifier), BlockModelGenerators.FLOWER_BED_MODEL_1_SEGMENT_CONDITION,
+      BlockModelGenerators.plainVariant(Identifier2), BlockModelGenerators.FLOWER_BED_MODEL_2_SEGMENT_CONDITION,
+      BlockModelGenerators.plainVariant(Identifier3), BlockModelGenerators.FLOWER_BED_MODEL_3_SEGMENT_CONDITION,
+      BlockModelGenerators.plainVariant(Identifier4), BlockModelGenerators.FLOWER_BED_MODEL_4_SEGMENT_CONDITION
     );
   }
 
@@ -536,13 +536,13 @@ public class SMBModelProvider extends FabricModelProvider {
       .put(TextureSlot.CROSS, ModelLocationUtils.getModelLocation(block, "_bottom"))
       .put(TextureSlot.CROSS_EMISSIVE, ModelLocationUtils.getModelLocation(block, "_bottom_emissive"));
 
-    ResourceLocation topModel = ModelTemplates.CROSS_EMISSIVE.createWithSuffix(block, "_top", topTextureMapping, this.modelOutput);
-    ResourceLocation bottomModel = ModelTemplates.CROSS_EMISSIVE.createWithSuffix(block, "_bottom", bottomTextureMapping, this.modelOutput);
+    Identifier topModel = ModelTemplates.CROSS_EMISSIVE.createWithSuffix(block, "_top", topTextureMapping, this.modelOutput);
+    Identifier bottomModel = ModelTemplates.CROSS_EMISSIVE.createWithSuffix(block, "_bottom", bottomTextureMapping, this.modelOutput);
 
     TextureMapping itemTextureMapping = TextureMapping.layered(
       topTextureMapping.get(TextureSlot.CROSS),  topTextureMapping.get(TextureSlot.CROSS_EMISSIVE));
 
-    ResourceLocation itemModel = ModelTemplates.TWO_LAYERED_ITEM.create(block.asItem(), itemTextureMapping, this.modelOutput);
+    Identifier itemModel = ModelTemplates.TWO_LAYERED_ITEM.create(block.asItem(), itemTextureMapping, this.modelOutput);
 
     this.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(itemModel));
     this.blockModelGenerators.createDoubleBlock(block, BlockModelGenerators.plainVariant(topModel), BlockModelGenerators.plainVariant(bottomModel));
@@ -576,7 +576,7 @@ public class SMBModelProvider extends FabricModelProvider {
       TextureMapping textureMapping = TextureMapping.defaultTexture(block)
         .copyAndUpdate(TextureSlot.TEXTURE, ModelLocationUtils.getModelLocation(block).withSuffix(suffix));
 
-      ResourceLocation model = SMBModelTemplates.SQUARE_HORIZONTAL.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
+      Identifier model = SMBModelTemplates.SQUARE_HORIZONTAL.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
 
       for (Quadrant quadrant : Quadrant.values()) {
         Variant variant = new Variant(model)
@@ -604,7 +604,7 @@ public class SMBModelProvider extends FabricModelProvider {
       .put(TextureSlot.END, TextureMapping.getBlockTexture(SMBBlocks.SOUL_SANDSTONE.get()).withSuffix("_top"))
       .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(SMBBlocks.CHISELED_SOUL_SANDSTONE.get()));
 
-    ResourceLocation model = ModelTemplates.CUBE_COLUMN.create(block, textureMapping, this.modelOutput);
+    Identifier model = ModelTemplates.CUBE_COLUMN.create(block, textureMapping, this.modelOutput);
     this.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(model)));
   }
 

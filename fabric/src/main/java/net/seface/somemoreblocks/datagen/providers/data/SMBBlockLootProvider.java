@@ -2,10 +2,10 @@ package net.seface.somemoreblocks.datagen.providers.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.advancements.critereon.BlockPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.BlockPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.LocationPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;

@@ -23,7 +23,7 @@ public abstract class RotatedPillarBlockMixin extends Block implements IBlockExt
       .map((block) -> {
         if (block instanceof RotatedCarvedPaleOakBlock) {
           return block.withPropertiesOf(state)
-            .setValue(RotatedCarvedPaleOakBlock.MOON_PHASE, ctx.getLevel().getMoonPhase());
+            .setValue(RotatedCarvedPaleOakBlock.MOON_PHASE, ctx.getLevel().getSkyDarken());
         }
         return block.withPropertiesOf(state);
       }).orElse(super.getToolModifiedState(state, ctx, itemAbility, simulate));
