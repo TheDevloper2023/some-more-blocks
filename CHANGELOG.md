@@ -3,20 +3,11 @@
 This file tracks all notable changes made to the project. It includes new features, bug fixes, improvements, and other updates — version by version.
 
 > [!NOTE]
-> This changelog is only related to the versions for `Minecraft 1.21.11`.
+> This changelog is only related to the versions for `Minecraft 26.1`.
 > For other versions, see their respective branch or the [most recent changelog](https://github.com/Seface-Studios/some-more-blocks/blob/main/CHANGELOG.md).
 
-## 1.9.0 - April 21, 2026
-Updated to Minecraft 1.21.11.
-
-## Fixes
-- Carved Pale Oak texture not rotating.
-- Carved Pale Wood texture not rotating.
-- Missing Carved Pale Wood recipe. ([#24](https://github.com/Seface-Studios/some-more-blocks/issues/24))
-- Missing Pale Oak Mosaic recipe. ([#24](https://github.com/Seface-Studios/some-more-blocks/issues/24))
-- Missing Polished Basalt Bricks recipe.
-- Missing Polished Snow recipe.
-- Redstone Shroomlight emitting light when off. ([#26](https://github.com/Seface-Studios/some-more-blocks/issues/26))
+## 26.1.0.0 - ???? X, 2026
+Updated to Minecraft 26.1.
 
 ---
 
