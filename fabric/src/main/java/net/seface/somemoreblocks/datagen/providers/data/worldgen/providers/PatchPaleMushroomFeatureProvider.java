@@ -1,27 +1,23 @@
 package net.seface.somemoreblocks.datagen.providers.data.worldgen.providers;
 
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import net.minecraft.world.level.levelgen.placement.*;
+import net.seface.somemoreblocks.datagen.providers.data.worldgen.utils.RandomPatchPlacementUtils;
 import net.seface.somemoreblocks.registries.SMBBlocks;
 import net.seface.somemoreblocks.tags.SMBConfiguredFeature;
 import net.seface.somemoreblocks.tags.SMBPlacedFeature;
-import net.sefacestudios.datagen_extras.provider.worldgen.FeatureProvider;
+import net.sefacestudios.datagen_extras.provider.worldgen.feature.FeatureProvider;
 
 import java.util.List;
 
-public class PatchPaleMushroomFeatureProvider extends FeatureProvider<RandomPatchConfiguration> {
+public class PatchPaleMushroomFeatureProvider extends FeatureProvider<SimpleBlockConfiguration> {
 
   public PatchPaleMushroomFeatureProvider() {
-    super(Feature.RANDOM_PATCH);
+    super(Feature.SIMPLE_BLOCK);
   }
 
   @Override
@@ -29,17 +25,13 @@ public class PatchPaleMushroomFeatureProvider extends FeatureProvider<RandomPatc
     modifier.add(RarityFilter.onAverageOnceEvery(3));
     modifier.add(InSquarePlacement.spread());
     modifier.add(HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(0)));
+    RandomPatchPlacementUtils.add(modifier, 96, 7, 3);
+    modifier.add(BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
   }
 
   @Override
-  protected RandomPatchConfiguration configuration() {
-    return new RandomPatchConfiguration(96, 7, 3,
-      PlacementUtils.filtered(
-        Feature.SIMPLE_BLOCK,
-        new SimpleBlockConfiguration(BlockStateProvider.simple(SMBBlocks.PALE_MUSHROOM.get())),
-        BlockPredicate.ONLY_IN_AIR_PREDICATE
-      )
-    );
+  protected SimpleBlockConfiguration configuration() {
+    return new SimpleBlockConfiguration(BlockStateProvider.simple(SMBBlocks.PALE_MUSHROOM.get()));
   }
 
   public static <T extends FeatureProvider<?>> T create() {

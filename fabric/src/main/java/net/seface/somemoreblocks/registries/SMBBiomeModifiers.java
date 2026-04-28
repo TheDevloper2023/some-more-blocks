@@ -9,6 +9,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.seface.somemoreblocks.tags.SMBBiomeTags;
 import net.seface.somemoreblocks.tags.SMBPlacedFeature;
+import org.jetbrains.annotations.NotNull;
 
 public class SMBBiomeModifiers {
   public static void init() {
@@ -20,6 +21,7 @@ public class SMBBiomeModifiers {
     SMBBiomeModifiers.patchCrimsonFungusColony(SMBPlacedFeature.PATCH_CRIMSON_FUNGUS_COLONY);
     SMBBiomeModifiers.patchCrimsonFungusColony(SMBPlacedFeature.SIMPLE_CRIMSON_FUNGUS_COLONY_WALL);
     SMBBiomeModifiers.patchDuneGrass();
+    SMBBiomeModifiers.patchDuneGrassDesert();
     SMBBiomeModifiers.patchLargeSnowFern();
     SMBBiomeModifiers.patchLuminousFlower();
     SMBBiomeModifiers.patchNetherClover();
@@ -103,9 +105,17 @@ public class SMBBiomeModifiers {
 
   private static void patchDuneGrass() {
     BiomeModifications.addFeature(
-      (ctx) -> BiomeSelectors.tag(BiomeTags.IS_BEACH).test(ctx) && ctx.getBiome().getBaseTemperature() >= 0.5F,
+      (ctx) -> (BiomeSelectors.tag(BiomeTags.IS_BEACH).test(ctx)) && ctx.getBiome().getBaseTemperature() >= 0.5F,
       GenerationStep.Decoration.VEGETAL_DECORATION,
       SMBPlacedFeature.PATCH_DUNE_GRASS
+    );
+  }
+
+  private static void patchDuneGrassDesert() {
+    BiomeModifications.addFeature(
+      (ctx) -> (BiomeSelectors.includeByKey(Biomes.DESERT).test(ctx)),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_DUNE_GRASS_DESERT
     );
   }
 
@@ -165,7 +175,7 @@ public class SMBBiomeModifiers {
     );
   }
 
-  private static void patchWarpedFungusColony(ResourceKey<PlacedFeature> feature) {
+  private static void patchWarpedFungusColony(ResourceKey<@NotNull PlacedFeature> feature) {
     BiomeModifications.addFeature(
       (ctx) -> BiomeSelectors.foundInTheNether().test(ctx) && BiomeSelectors.tag(SMBBiomeTags.GENERATES_WARPED_FUNGUS_COLONY).test(ctx),
       GenerationStep.Decoration.VEGETAL_DECORATION,
@@ -173,7 +183,7 @@ public class SMBBiomeModifiers {
     );
   }
 
-  private static void patchCrimsonFungusColony(ResourceKey<PlacedFeature> feature) {
+  private static void patchCrimsonFungusColony(ResourceKey<@NotNull PlacedFeature> feature) {
     BiomeModifications.addFeature(
       (ctx) -> BiomeSelectors.foundInTheNether().test(ctx) && BiomeSelectors.tag(SMBBiomeTags.GENERATES_CRIMSON_FUNGUS_COLONY).test(ctx),
       GenerationStep.Decoration.VEGETAL_DECORATION,
@@ -181,7 +191,7 @@ public class SMBBiomeModifiers {
     );
   }
 
-  private static void simpleRedMushroomColony(ResourceKey<PlacedFeature> feature) {
+  private static void simpleRedMushroomColony(ResourceKey<@NotNull PlacedFeature> feature) {
     BiomeModifications.addFeature(
       (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_RED_MUSHROOM_COLONY).test(ctx),
       GenerationStep.Decoration.VEGETAL_DECORATION,
@@ -189,7 +199,7 @@ public class SMBBiomeModifiers {
     );
   }
 
-  private static void simplePaleMushroomColony(ResourceKey<PlacedFeature> feature) {
+  private static void simplePaleMushroomColony(ResourceKey<@NotNull PlacedFeature> feature) {
     BiomeModifications.addFeature(
       (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_PALE_MUSHROOM_COLONY).test(ctx),
       GenerationStep.Decoration.VEGETAL_DECORATION,
@@ -197,7 +207,7 @@ public class SMBBiomeModifiers {
     );
   }
 
-  private static void simpleBrownMushroomColony(ResourceKey<PlacedFeature> feature) {
+  private static void simpleBrownMushroomColony(ResourceKey<@NotNull PlacedFeature> feature) {
     BiomeModifications.addFeature(
       (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_BROWN_MUSHROOM_COLONY).test(ctx),
       GenerationStep.Decoration.VEGETAL_DECORATION,
@@ -205,7 +215,7 @@ public class SMBBiomeModifiers {
     );
   }
 
-  private static void simpleLeafLitter(ResourceKey<PlacedFeature> feature) {
+  private static void simpleLeafLitter(ResourceKey<@NotNull PlacedFeature> feature) {
     BiomeModifications.addFeature(
       (ctx) -> BiomeSelectors.tag(BiomeTags.IS_OVERWORLD).test(ctx),
       GenerationStep.Decoration.VEGETAL_DECORATION,

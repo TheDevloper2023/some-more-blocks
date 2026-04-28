@@ -23,8 +23,8 @@
             "type": "minecraft:all_of",
             "predicates": [
               {
-                "type": "minecraft:matching_blocks",
-                "blocks": "minecraft:air"
+                "type": "minecraft:matching_block_tag",
+                "tag": "minecraft:air"
               },
               {
                 "type": "minecraft:any_of",
@@ -120,8 +120,8 @@
                 "type": "minecraft:all_of",
                 "predicates": [
                   {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:air"
+                    "type": "minecraft:matching_block_tag",
+                    "tag": "minecraft:air"
                   },
                   {
                     "type": "minecraft:any_of",
@@ -217,8 +217,8 @@
                 "type": "minecraft:all_of",
                 "predicates": [
                   {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:air"
+                    "type": "minecraft:matching_block_tag",
+                    "tag": "minecraft:air"
                   },
                   {
                     "type": "minecraft:any_of",
@@ -314,8 +314,8 @@
                 "type": "minecraft:all_of",
                 "predicates": [
                   {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:air"
+                    "type": "minecraft:matching_block_tag",
+                    "tag": "minecraft:air"
                   },
                   {
                     "type": "minecraft:any_of",
@@ -411,8 +411,8 @@
                 "type": "minecraft:all_of",
                 "predicates": [
                   {
-                    "type": "minecraft:matching_blocks",
-                    "blocks": "minecraft:air"
+                    "type": "minecraft:matching_block_tag",
+                    "tag": "minecraft:air"
                   },
                   {
                     "type": "minecraft:any_of",

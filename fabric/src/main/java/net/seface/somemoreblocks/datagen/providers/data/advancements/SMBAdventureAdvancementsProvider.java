@@ -1,36 +1,23 @@
 package net.seface.somemoreblocks.datagen.providers.data.advancements;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.advancements.packs.VanillaHusbandryAdvancements;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources .Identifier;
-import net.minecraft.world.item.HoneycombItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.resources.Identifier;
 import net.seface.somemoreblocks.registries.SMBBlocks;
-import net.seface.somemoreblocks.registries.SMBRegistries;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class SMBAdventureAdvancementsProvider extends FabricAdvancementProvider {
   private Consumer<AdvancementHolder> generator;
 
-  public SMBAdventureAdvancementsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
+  public SMBAdventureAdvancementsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
     super(output, lookup);
   }
 

@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_features",
-  "biomes": "#somemoreblocks:generates/luminous_flower",
+  "biomes": "#minecraft:is_overworld",
   "features": "somemoreblocks:patch_luminous_flower",
-  "step": "underground_decoration"
+  "step": "vegetal_decoration"
 }

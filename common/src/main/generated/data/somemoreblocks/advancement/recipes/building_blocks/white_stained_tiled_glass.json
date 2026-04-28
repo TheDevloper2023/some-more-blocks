@@ -7,11 +7,11 @@
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_white_dye": {
+    "has_tiled_glass": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:white_dye"
+            "items": "somemoreblocks:tiled_glass"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_white_dye"
+      "has_tiled_glass"
     ]
   ],
   "rewards": {

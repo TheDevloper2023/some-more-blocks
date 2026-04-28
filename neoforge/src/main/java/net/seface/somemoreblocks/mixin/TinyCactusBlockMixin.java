@@ -15,6 +15,6 @@ public abstract class TinyCactusBlockMixin implements IBlockExtension {
 
   @Override
   public @Nullable PathType getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob mob) {
-    return PathType.DAMAGE_OTHER;
+    return PathType.DAMAGING;
   }
 }

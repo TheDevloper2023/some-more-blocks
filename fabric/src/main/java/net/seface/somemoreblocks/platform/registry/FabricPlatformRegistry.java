@@ -1,8 +1,6 @@
 package net.seface.somemoreblocks.platform.registry;
 
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
@@ -73,12 +71,12 @@ public class FabricPlatformRegistry implements PlatformRegistry {
   }
 
   @Override
-  public PlatformRegistryObject<CreativeModeTab> registerCreativeModeTab(String path, CreativeModeTab.Row _row, int i, UnaryOperator<CreativeModeTab.Builder> builder) {
-    Identifier identifier = SomeMoreBlocks.id(i + "_" + path);
+  public PlatformRegistryObject<CreativeModeTab> registerCreativeModeTab(String path, CreativeModeTab.Row row, int collumn, UnaryOperator<CreativeModeTab.Builder> builder) {
+    Identifier identifier = SomeMoreBlocks.id(collumn + "_" + path);
     CreativeModeTab instance = Registry.register(
       BuiltInRegistries.CREATIVE_MODE_TAB,
       identifier,
-      builder.apply(FabricItemGroup.builder()).build());
+      builder.apply(CreativeModeTab.builder(row, collumn)).build());
 
     return new FabricRegistryObject<>(identifier, () -> instance);
   }
@@ -95,7 +93,7 @@ public class FabricPlatformRegistry implements PlatformRegistry {
 
   @Override
   public void setBlockRenderType(Block block, ChunkSectionLayer renderType) {
-    BlockRenderLayerMap.putBlock(block, renderType);
+    //BlockRenderLayerMap.putBlock(block, renderType);
   }
 
   @Override

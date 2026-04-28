@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "somemoreblocks:stone_tiles",
   "result": {
-    "count": 1,
     "id": "somemoreblocks:stone_tile_wall"
   }
 }

@@ -18,7 +18,8 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.placement.*;
 import net.seface.somemoreblocks.block.WallMushroomColonyBlock;
 import net.seface.somemoreblocks.tags.SMBBlockTags;
-import net.sefacestudios.datagen_extras.provider.worldgen.FeatureProvider;
+import net.sefacestudios.datagen_extras.provider.worldgen.feature.FeatureProvider;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class SimpleMushroomColonyWallFeatureProvider extends FeatureProvider<Ran
     );
   }
 
-  protected Holder<PlacedFeature> placementFacing(Direction direction) {
+  protected Holder<@NotNull PlacedFeature> placementFacing(Direction direction) {
     return PlacementUtils.filtered(
       Feature.SIMPLE_BLOCK,
       new SimpleBlockConfiguration(

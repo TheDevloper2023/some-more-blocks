@@ -1,6 +1,6 @@
 package net.seface.somemoreblocks.datagen.providers.data.advancements;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 public class SMBNetherAdvancementsProvider extends FabricAdvancementProvider {
   private Consumer<AdvancementHolder> generator;
 
-  public SMBNetherAdvancementsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
+  public SMBNetherAdvancementsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
     super(output, lookup);
   }
 

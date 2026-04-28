@@ -1,23 +1,17 @@
 plugins {
-  id "java-library"
-  id "net.neoforged.moddev" version "${neoforge_loom_version}"
+  id 'some-more-loaders'
+  id "net.neoforged.moddev"
+  id 'idea'
 }
 
-dependencies {
-  implementation "net.neoforged:neoforge:${neoforge_version}"
-}
+def common = project(":common")
 
 neoForge {
   version = neoforge_version
 
-  var File AT = project(":common").file('src/main/resources/META-INF/accesstransformer.cfg')
+  var File AT = common.file('src/main/resources/META-INF/accesstransformer.cfg')
   if (AT.exists()) {
     accessTransformers.from(AT.absolutePath)
-  }
-
-  parchment {
-    mappingsVersion = neoforge_mappings_version
-    minecraftVersion = minecraft_version
   }
 
   runs {
@@ -28,10 +22,12 @@ neoForge {
 
     client {
       client()
+      gameDirectory = this.mkdir(this.file("runs/client"))
     }
 
     server {
       server()
+      gameDirectory = this.mkdir(this.file("runs/server"))
       programArgument '--nogui'
     }
   }

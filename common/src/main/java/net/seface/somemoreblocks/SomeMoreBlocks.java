@@ -76,7 +76,7 @@ public class SomeMoreBlocks {
     LOGGER.info("*****************************************************");
     LOGGER.info("  > Platform: " + PlatformServices.HELPER.getPlatformName());
     LOGGER.info("  > Environment: " + PlatformServices.HELPER.getEnvironment().getName());
-    LOGGER.info("  > Version: " + PlatformServices.HELPER.getVersion());
+    LOGGER.info("  > Version: " + PlatformServices.HELPER.getModVersion());
     LOGGER.info("*****************************************************");
   }
 

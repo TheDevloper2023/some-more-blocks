@@ -1,6 +1,6 @@
 package net.seface.somemoreblocks.datagen.providers.data.advancements;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -40,7 +40,7 @@ public class SMBHusbandryAdvancementsProvider extends FabricAdvancementProvider 
   private static final List<Block> WAX_ON_BLOCKS = new ArrayList<>(HoneycombItem.WAXABLES.get().keySet());
   private static final List<Block> WAX_OFF_BLOCKS = new ArrayList<>(HoneycombItem.WAX_OFF_BY_BLOCK.get().keySet());
 
-  public SMBHusbandryAdvancementsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
+  public SMBHusbandryAdvancementsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
     super(output, lookup);
 
     WAX_ON_BLOCKS.addAll(SMBRegistries.WAXED_COPPER_BLOCKS.getKeySet().stream().toList());

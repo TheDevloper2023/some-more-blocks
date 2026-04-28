@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "somemoreblocks:polished_ice",
   "result": {
-    "count": 1,
     "id": "somemoreblocks:cracked_ice_bricks"
   }
 }

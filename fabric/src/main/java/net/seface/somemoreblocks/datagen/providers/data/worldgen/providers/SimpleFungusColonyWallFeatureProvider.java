@@ -14,7 +14,9 @@ import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConf
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.seface.somemoreblocks.block.WallMushroomColonyBlock;
+import net.seface.somemoreblocks.datagen.providers.data.worldgen.utils.RandomPatchPlacementUtils;
 import net.seface.somemoreblocks.tags.SMBBlockTags;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -25,13 +27,14 @@ public class SimpleFungusColonyWallFeatureProvider extends SimpleMushroomColonyW
 
   @Override
   protected void placed(List<PlacementModifier> modifier) {
-    modifier.add(CountOnEveryLayerPlacement.of(256));
     modifier.add(RandomOffsetPlacement.vertical(UniformInt.of(1, 8)));
     modifier.add(BiomeFilter.biome());
+    RandomPatchPlacementUtils.addEveryLayer(modifier, 256, 3, 2);
+    modifier.add(BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
   }
 
   @Override
-  protected Holder<PlacedFeature> placementFacing(Direction direction) {
+  protected Holder<@NotNull PlacedFeature> placementFacing(Direction direction) {
     return PlacementUtils.filtered(
       Feature.SIMPLE_BLOCK,
       new SimpleBlockConfiguration(

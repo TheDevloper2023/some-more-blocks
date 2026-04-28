@@ -1,25 +1,25 @@
 package net.seface.somemoreblocks.datagen.providers.data.worldgen.providers;
 
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.*;
+import net.seface.somemoreblocks.datagen.providers.data.worldgen.utils.RandomPatchPlacementUtils;
 import net.seface.somemoreblocks.registries.SMBBlocks;
 import net.seface.somemoreblocks.tags.SMBConfiguredFeature;
 import net.seface.somemoreblocks.tags.SMBPlacedFeature;
-import net.sefacestudios.datagen_extras.provider.worldgen.FeatureProvider;
+import net.sefacestudios.datagen_extras.provider.worldgen.feature.FeatureProvider;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class PatchCactusFeatureProvider extends FeatureProvider<RandomPatchConfiguration> {
+public class PatchCactusFeatureProvider extends FeatureProvider<SimpleBlockConfiguration> {
   public PatchCactusFeatureProvider() {
-    super(Feature.RANDOM_PATCH);
+    super(Feature.SIMPLE_BLOCK);
   }
 
   @Override
@@ -28,22 +28,18 @@ public class PatchCactusFeatureProvider extends FeatureProvider<RandomPatchConfi
     modifier.add(InSquarePlacement.spread());
     modifier.add(HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING));
     modifier.add(BiomeFilter.biome());
+    RandomPatchPlacementUtils.add(modifier, 12, 3, 2);
+    modifier.add(BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
   }
 
   @Override
-  protected RandomPatchConfiguration configuration() {
-    return new RandomPatchConfiguration(8, 3, 2,
-      PlacementUtils.filtered(
-        Feature.SIMPLE_BLOCK,
-        new SimpleBlockConfiguration(
-          new WeightedStateProvider(
-            new WeightedList.Builder<BlockState>()
-              .add(SMBBlocks.TINY_CACTUS.get().defaultBlockState(), 60)
-              .add(SMBBlocks.TALL_CACTUS.get().defaultBlockState(), 40)
-              .build()
-          )
-        ),
-        BlockPredicate.ONLY_IN_AIR_PREDICATE
+  protected SimpleBlockConfiguration configuration() {
+    return new SimpleBlockConfiguration(
+      new WeightedStateProvider(
+        new WeightedList.Builder<@NotNull BlockState>()
+          .add(SMBBlocks.TINY_CACTUS.get().defaultBlockState(), 60)
+          .add(SMBBlocks.TALL_CACTUS.get().defaultBlockState(), 40)
+          .build()
       )
     );
   }

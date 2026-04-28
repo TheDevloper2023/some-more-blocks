@@ -1,6 +1,6 @@
 package net.seface.somemoreblocks.datagen.providers.data.worldgen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -14,11 +14,13 @@ import net.seface.somemoreblocks.datagen.providers.data.worldgen.providers.*;
 import net.seface.somemoreblocks.registries.SMBBlocks;
 import net.seface.somemoreblocks.tags.SMBConfiguredFeature;
 import net.seface.somemoreblocks.tags.SMBPlacedFeature;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("deprecation")
 public class SMBFeatureProvider extends FabricDynamicRegistryProvider {
-  public SMBFeatureProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+  public SMBFeatureProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
     super(output, future);
   }
 
@@ -28,18 +30,20 @@ public class SMBFeatureProvider extends FabricDynamicRegistryProvider {
     entries.addAll(provider.lookupOrThrow(Registries.PLACED_FEATURE));
   }
 
+  @NotNull
   @Override
   public String getName() {
     return "Feature";
   }
 
-  public static void bootstrapF(BootstrapContext<PlacedFeature> context) {
+  public static void bootstrapF(BootstrapContext<@NotNull PlacedFeature> context) {
     NoneBigLilyPadFeatureProvider.create().registerPlaceFeature(context);
     PatchCactusFeatureProvider.create().registerPlaceFeature(context);
     PatchCattailFeatureProvider.create().registerPlaceFeature(context);
     PatchCattailSwampFeatureProvider.create().registerPlaceFeature(context);
     PatchCloverFeatureProvider.create().registerPlaceFeature(context);
     PatchDunePlantsFeatureProvider.create().registerPlaceFeature(context);
+    PatchDunePlantsDesertFeatureProvider.create().registerPlaceFeature(context);
     PatchLargeSnowFernFeatureProvider.create().registerPlaceFeature(context);
     PatchLuminousFlowerFeatureProvider.create().registerPlaceFeature(context);
     PatchNetherCloverFeatureProvider.create().registerPlaceFeature(context);
@@ -67,13 +71,14 @@ public class SMBFeatureProvider extends FabricDynamicRegistryProvider {
     SMBFeatureProvider.warpedFungusColonyWall().registerPlaceFeature(context);
   }
 
-  public static void bootstrapCF(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+  public static void bootstrapCF(BootstrapContext<@NotNull ConfiguredFeature<?, ?>> context) {
     NoneBigLilyPadFeatureProvider.create().registerConfiguredFeature(context);
     PatchCactusFeatureProvider.create().registerConfiguredFeature(context);
     PatchCattailFeatureProvider.create().registerConfiguredFeature(context);
     PatchCattailSwampFeatureProvider.create().registerConfiguredFeature(context);
     PatchCloverFeatureProvider.create().registerConfiguredFeature(context);
     PatchDunePlantsFeatureProvider.create().registerConfiguredFeature(context);
+    PatchDunePlantsDesertFeatureProvider.create().registerConfiguredFeature(context);
     PatchLargeSnowFernFeatureProvider.create().registerConfiguredFeature(context);
     PatchLuminousFlowerFeatureProvider.create().registerConfiguredFeature(context);
     PatchNetherCloverFeatureProvider.create().registerConfiguredFeature(context);
@@ -182,15 +187,15 @@ public class SMBFeatureProvider extends FabricDynamicRegistryProvider {
     return simpleFungusColony(SMBBlocks.CRIMSON_FUNGUS_COLONY_WALL.get(), SMBPlacedFeature.SIMPLE_CRIMSON_FUNGUS_COLONY_WALL, SMBConfiguredFeature.SIMPLE_CRIMSON_FUNGUS_COLONY_WALL);
   }
 
-  private static SimpleFungusColonyWallFeatureProvider simpleFungusColony(Block block, ResourceKey<PlacedFeature> placedFeature, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature) {
+  private static SimpleFungusColonyWallFeatureProvider simpleFungusColony(Block block, ResourceKey<@NotNull PlacedFeature> placedFeature, ResourceKey<@NotNull ConfiguredFeature<?, ?>> configuredFeature) {
     return new SimpleFungusColonyWallFeatureProvider(block).setPlacedFeatureKey(placedFeature).setConfiguredFeatureKey(configuredFeature);
   }
 
-  private static SimpleMushroomColonyWallFeatureProvider simpleMushroomColony(Block block, ResourceKey<PlacedFeature> placedFeature, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature) {
+  private static SimpleMushroomColonyWallFeatureProvider simpleMushroomColony(Block block, ResourceKey<@NotNull PlacedFeature> placedFeature, ResourceKey<@NotNull ConfiguredFeature<?, ?>> configuredFeature) {
     return new SimpleMushroomColonyWallFeatureProvider(block).setPlacedFeatureKey(placedFeature).setConfiguredFeatureKey(configuredFeature);
   }
 
-  private static SimpleLeafLitterFeatureProvider simpleLeafLitter(Block block, ResourceKey<PlacedFeature> placedFeature, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature) {
+  private static SimpleLeafLitterFeatureProvider simpleLeafLitter(Block block, ResourceKey<@NotNull PlacedFeature> placedFeature, ResourceKey<@NotNull ConfiguredFeature<?, ?>> configuredFeature) {
     return new SimpleLeafLitterFeatureProvider(block).setPlacedFeatureKey(placedFeature).setConfiguredFeatureKey(configuredFeature);
   }
 }

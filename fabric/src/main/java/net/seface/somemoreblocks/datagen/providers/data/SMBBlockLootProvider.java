@@ -1,7 +1,7 @@
 package net.seface.somemoreblocks.datagen.providers.data;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.advancements.criterion.BlockPredicate;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.LocationPredicate;
@@ -42,10 +42,10 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
 
-public class SMBBlockLootProvider extends FabricBlockLootTableProvider {
+public class SMBBlockLootProvider extends FabricBlockLootSubProvider {
   private static final List<BlockFamily> SHOULD_NOT_GENERATE_LOOT_TABLE = new ArrayList<>();
 
-  public SMBBlockLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
+  public SMBBlockLootProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
     super(output, lookup);
 
     SHOULD_NOT_GENERATE_LOOT_TABLE.addAll(List.of(

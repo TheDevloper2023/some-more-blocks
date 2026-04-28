@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "somemoreblocks:soul_sandstone",
   "result": {
-    "count": 1,
     "id": "somemoreblocks:soul_sandstone_tile_wall"
   }
 }

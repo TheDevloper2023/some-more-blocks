@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "id": "${mod_id}",
-  "version": "${version}",
+  "version": "${mod_version}",
   "name": "${mod_name}",
-  "description": "${description}",
+  "description": "${mod_description}",
   "authors": ["${mod_author}"],
   "contributors": [
     "Translators",
@@ -31,7 +31,7 @@
   ],
 
   "contact": {
-    "homepage": "${main_url}",
+    "homepage": "${website_url}",
     "sources": "${source_url}",
     "issues": "${issues_tracker_url}"
   },
@@ -46,7 +46,7 @@
     }
   },
 
-  "license": "${license}",
+  "license": "${project_license}",
   "icon": "assets/${mod_id}/icon_64.png",
   "environment": "*",
   "entrypoints": {
@@ -62,9 +62,9 @@
 
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
-    "fabric-api": ">=${fabric_version}",
-    "minecraft": "${minecraft_version}",
-    "java": ">=${java_version}"
+    "fabric-api": ">=${fabric_api_version}",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=${project_jdk}"
   },
 
   "suggests": {}

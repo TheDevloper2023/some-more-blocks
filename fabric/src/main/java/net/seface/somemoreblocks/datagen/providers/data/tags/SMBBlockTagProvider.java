@@ -1,19 +1,17 @@
 package net.seface.somemoreblocks.datagen.providers.data.tags;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.seface.somemoreblocks.registries.SMBBlocks;
 import net.seface.somemoreblocks.tags.SMBBlockTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class SMBBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-  public SMBBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+public class SMBBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
+  public SMBBlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
     super(output, future);
   }
 

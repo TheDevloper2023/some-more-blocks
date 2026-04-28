@@ -1,12 +1,13 @@
-accessWidener v2 named
+accessWidener v2 official
 
 # Classes
 accessible method net/minecraft/world/level/block/StairBlock <init> (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/TransparentBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/IronBarsBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/WaterloggedTransparentBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
-accessible method net/minecraft/world/level/block/WaterlilyBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+accessible method net/minecraft/world/level/block/LilyPadBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/BushBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V # BushBlock constructor
+accessible method net/minecraft/world/item/CreativeModeTab$Output accept (Lnet/minecraft/world/level/ItemLike;)V
 
 # Methods & Fields
 

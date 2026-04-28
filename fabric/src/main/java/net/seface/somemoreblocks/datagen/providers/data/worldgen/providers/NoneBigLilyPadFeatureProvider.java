@@ -6,8 +6,8 @@ import net.minecraft.world.level.levelgen.placement.*;
 import net.seface.somemoreblocks.registries.SMBFeatures;
 import net.seface.somemoreblocks.tags.SMBConfiguredFeature;
 import net.seface.somemoreblocks.tags.SMBPlacedFeature;
-import net.sefacestudios.datagen_extras.provider.worldgen.EmptyFeatureProvider;
-import net.sefacestudios.datagen_extras.provider.worldgen.FeatureProvider;
+import net.sefacestudios.datagen_extras.provider.worldgen.feature.EmptyFeatureProvider;
+import net.sefacestudios.datagen_extras.provider.worldgen.feature.FeatureProvider;
 
 import java.util.List;
 

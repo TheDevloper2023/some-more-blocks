@@ -7,13 +7,13 @@ import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
-import net.minecraft.world.level.levelgen.placement.*;
-import net.seface.somemoreblocks.block.CloverBlock;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.seface.somemoreblocks.registries.SMBFeatures;
 import net.seface.somemoreblocks.worldgen.feature.configurations.SimpleLeafLitterBlockConfiguration;
-import net.sefacestudios.datagen_extras.provider.worldgen.FeatureProvider;
+import net.sefacestudios.datagen_extras.provider.worldgen.feature.FeatureProvider;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 public class SimpleLeafLitterFeatureProvider extends FeatureProvider<SimpleLeafLitterBlockConfiguration> {
   private final Block toPlaceBlock;
   private float toPlaceChance;
-  private final List<ResourceKey<Block>> parents;
+  private final List<ResourceKey<@NotNull Block>> parents;
 
   public SimpleLeafLitterFeatureProvider(Block toPlaceBlock) {
     this(toPlaceBlock, 12.5F);
@@ -41,7 +41,7 @@ public class SimpleLeafLitterFeatureProvider extends FeatureProvider<SimpleLeafL
 
   @Override
   protected SimpleLeafLitterBlockConfiguration configuration() {
-    WeightedList.Builder<BlockState> builder = new WeightedList.Builder<>();
+    WeightedList.Builder<@NotNull BlockState> builder = new WeightedList.Builder<>();
 
     for (Direction direction : LeafLitterBlock.FACING.getPossibleValues()) {
       for (int i : LeafLitterBlock.AMOUNT.getPossibleValues()) {

@@ -10,8 +10,8 @@ import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerato
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.block.model.Variant;
-import net.minecraft.client.renderer.block.model.VariantMutator;
+import net.minecraft.client.renderer.block.dispatch.Variant;
+import net.minecraft.client.renderer.block.dispatch.VariantMutator;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.core.Direction;
@@ -44,7 +44,7 @@ public class CarvedWoodBlockProvider {
 
   public CarvedWoodBlockProvider log(Block block, Block topBottomBlock) {
     TextureMapping textureMapping = this.mainTextureMap
-      .copyAndUpdate(TextureSlot.END, ModelLocationUtils.getModelLocation(topBottomBlock).withSuffix("_top"));
+      .copyAndUpdate(TextureSlot.END, TextureMapping.getBlockTexture(topBottomBlock, "_top"));
 
     Identifier verticalModel = ModelTemplates.CUBE_COLUMN.create(block, textureMapping, this.modelOutput);
     //Identifier horizontalModel = ModelTemplates.CUBE_COLUMN_HORIZONTAL.create(block, textureMapping, this.modelOutput);
@@ -60,8 +60,8 @@ public class CarvedWoodBlockProvider {
       String suffix = "_" + i;
 
       TextureMapping textureMapping = this.mainTextureMap
-        .copyAndUpdate(TextureSlot.SIDE, this.mainTextureMap.get(TextureSlot.SIDE).withSuffix(suffix))
-        .copyAndUpdate(TextureSlot.END, ModelLocationUtils.getModelLocation(topBottomBlock).withSuffix("_top"));
+        .copyAndUpdate(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, suffix))
+        .copyAndUpdate(TextureSlot.END, TextureMapping.getBlockTexture(topBottomBlock, "_top"));
 
       Identifier verticalModel = ModelTemplates.CUBE_COLUMN.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
       Identifier horizontalModel =  ModelTemplates.CUBE_COLUMN_HORIZONTAL.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
@@ -87,16 +87,15 @@ public class CarvedWoodBlockProvider {
     return this;
   }
 
-  public CarvedWoodBlockProvider woodByMoonPhase(Block block) {
+  public CarvedWoodBlockProvider woodByMoonPhase(Block block, Block parentBlock) {
     RangeSelectItemModel.Entry[] overrides = new RangeSelectItemModel.Entry[RotatedCarvedPaleOakBlock.MAX_MOON_PHASE + 1];
 
     for (int i = 0; i <= RotatedCarvedPaleOakBlock.MAX_MOON_PHASE; i++) {
       String suffix = "_" + i;
 
-      Identifier textureLocation = this.mainTextureMap.get(TextureSlot.SIDE).withSuffix(suffix);
       TextureMapping textureMapping = this.mainTextureMap
-        .copyAndUpdate(TextureSlot.SIDE, textureLocation)
-        .copyAndUpdate(TextureSlot.END, textureLocation);
+        .copyAndUpdate(TextureSlot.SIDE, TextureMapping.getBlockTexture(parentBlock, suffix))
+        .copyAndUpdate(TextureSlot.END, TextureMapping.getBlockTexture(parentBlock, suffix));
 
       Identifier model = ModelTemplates.CUBE_COLUMN.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
 

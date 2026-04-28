@@ -3,7 +3,6 @@ package net.seface.somemoreblocks.registries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -34,7 +33,7 @@ public class SMBBlocks {
   public static final PlatformRegistryObject<Block> TALL_RED_MUSHROOM_COLONY = PlatformServices.REGISTRY.registerBlock("tall_red_mushroom_colony", () -> new DoubleMushroomColonyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).setId(SomeMoreBlocks.key(Registries.BLOCK, "tall_red_mushroom_colony"))), false);
   public static final PlatformRegistryObject<Block> RED_MUSHROOM_COLONY = PlatformServices.REGISTRY.registerBlock("red_mushroom_colony", () -> new MushroomColonyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).setId(SomeMoreBlocks.key(Registries.BLOCK, "red_mushroom_colony")), SMBBlocks.TALL_RED_MUSHROOM_COLONY.get()), false);
   public static final PlatformRegistryObject<Block> RED_MUSHROOM_COLONY_WALL = PlatformServices.REGISTRY.registerBlock("red_mushroom_colony_wall", () -> new WallMushroomColonyBlock(BlockBehaviour.Properties.ofFullCopy(SMBBlocks.RED_MUSHROOM_COLONY.get()).setId(SomeMoreBlocks.key(Registries.BLOCK, "red_mushroom_colony_wall"))), false);
-  public static final PlatformRegistryObject<Block> SMALL_LILY_PADS = PlatformServices.REGISTRY.registerBlock("small_lily_pads", () -> new WaterlilyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD).noCollision().setId(SomeMoreBlocks.key(Registries.BLOCK, "small_lily_pads"))), false);
+  public static final PlatformRegistryObject<Block> SMALL_LILY_PADS = PlatformServices.REGISTRY.registerBlock("small_lily_pads", () -> new LilyPadBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD).noCollision().setId(SomeMoreBlocks.key(Registries.BLOCK, "small_lily_pads"))), false);
   public static final PlatformRegistryObject<Block> TALL_DUNE_GRASS = PlatformServices.REGISTRY.registerBlock("tall_dune_grass", () -> new DoubleDuneGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS).setId(SomeMoreBlocks.key(Registries.BLOCK, "tall_dune_grass"))));
   public static final PlatformRegistryObject<Block> DUNE_GRASS = PlatformServices.REGISTRY.registerBlock("dune_grass", () -> new GenericBonemealableBlock(SMBBlocks.TALL_DUNE_GRASS.get(), SMBBlockTags.DUNE_GRASS_PLACEABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS).setId(SomeMoreBlocks.key(Registries.BLOCK, "dune_grass"))));
   public static final PlatformRegistryObject<Block> LARGE_SNOW_FERN = PlatformServices.REGISTRY.registerBlock("large_snow_fern", () -> new DoublePlantBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LARGE_FERN).setId(SomeMoreBlocks.key(Registries.BLOCK, "large_snow_fern"))));

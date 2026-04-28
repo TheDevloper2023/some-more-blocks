@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "somemoreblocks:polished_calcite",
   "result": {
-    "count": 1,
     "id": "somemoreblocks:calcite_tiles"
   }
 }

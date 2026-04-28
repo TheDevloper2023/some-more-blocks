@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
-  "group": "tiled_glass_from_stained_glass",
+  "group": "stained_tiled_glass",
   "key": {
     "#": "minecraft:pink_stained_glass"
   },
@@ -10,7 +10,7 @@
     "##"
   ],
   "result": {
-    "count": 4,
+    "count": 8,
     "id": "somemoreblocks:pink_stained_tiled_glass"
   }
 }

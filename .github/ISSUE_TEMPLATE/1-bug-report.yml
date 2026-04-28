@@ -31,7 +31,7 @@ body:
     attributes:
       label: Mod version
       description: Which Mod version is the issue occurring? Keep in mind that this is the Mod version and NOT the game version!
-      placeholder: "1.2.2"
+      placeholder: "26.1.0.0"
     validations:
       required: true
 

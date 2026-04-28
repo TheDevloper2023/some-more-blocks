@@ -2,26 +2,26 @@ package net.seface.somemoreblocks.datagen.providers.data.worldgen.providers;
 
 import lombok.Setter;
 import net.minecraft.core.Direction;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.seface.somemoreblocks.block.CloverBlock;
+import net.seface.somemoreblocks.datagen.providers.data.worldgen.utils.RandomPatchPlacementUtils;
 import net.seface.somemoreblocks.registries.SMBBlocks;
 import net.seface.somemoreblocks.tags.SMBConfiguredFeature;
 import net.seface.somemoreblocks.tags.SMBPlacedFeature;
-import net.sefacestudios.datagen_extras.provider.worldgen.FeatureProvider;
+import net.sefacestudios.datagen_extras.provider.worldgen.feature.FeatureProvider;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class PatchCloverFeatureProvider extends FeatureProvider<RandomPatchConfiguration> {
+public class PatchCloverFeatureProvider extends FeatureProvider<SimpleBlockConfiguration> {
   protected Block toPlaceBlock;
 
   @Setter
@@ -32,7 +32,7 @@ public class PatchCloverFeatureProvider extends FeatureProvider<RandomPatchConfi
   }
 
   public PatchCloverFeatureProvider(Block toPlaceBlock) {
-    super(Feature.FLOWER);
+    super(Feature.SIMPLE_BLOCK);
     this.toPlaceBlock = toPlaceBlock;
   }
 
@@ -42,11 +42,13 @@ public class PatchCloverFeatureProvider extends FeatureProvider<RandomPatchConfi
     modifier.add(InSquarePlacement.spread());
     modifier.add(HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG));
     modifier.add(BiomeFilter.biome());
+    RandomPatchPlacementUtils.add(modifier, this.tries, 6, 2);
+    modifier.add(BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
   }
 
   @Override
-  protected RandomPatchConfiguration configuration() {
-    WeightedList.Builder<BlockState> builder = new WeightedList.Builder<>();
+  protected SimpleBlockConfiguration configuration() {
+    WeightedList.Builder<@NotNull BlockState> builder = new WeightedList.Builder<>();
 
     for (Direction direction : CloverBlock.FACING.getPossibleValues()) {
       for (int i : CloverBlock.AMOUNT.getPossibleValues()) {
@@ -57,13 +59,8 @@ public class PatchCloverFeatureProvider extends FeatureProvider<RandomPatchConfi
       }
     }
 
-    return new RandomPatchConfiguration(this.tries, 6, 2,
-      PlacementUtils.filtered(
-        Feature.SIMPLE_BLOCK,
-        new SimpleBlockConfiguration(
-          new WeightedStateProvider(builder.build())),
-        BlockPredicate.ONLY_IN_AIR_PREDICATE
-      )
+    return new SimpleBlockConfiguration(
+      new WeightedStateProvider(builder.build())
     );
   }
 

@@ -3,51 +3,43 @@ package net.seface.somemoreblocks.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.seface.somemoreblocks.block.RotatedCarvedPaleOakBlock;
 import net.seface.somemoreblocks.registries.SMBBlocks;
 import net.seface.somemoreblocks.registries.SMBDataComponentTypes;
 import net.seface.somemoreblocks.registries.SMBItems;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
 public class CarvedPaleOakWoodCraftingRecipe extends ShapedRecipe {
-  private static final MapCodec<CarvedPaleOakWoodCraftingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-      Codec.BOOL.optionalFieldOf("show_notification", true).forGetter(ShapedRecipe::showNotification)
+  private static final MapCodec<CarvedPaleOakWoodCraftingRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+      Codec.BOOL.optionalFieldOf("show_notification", true).forGetter(CarvedPaleOakWoodCraftingRecipe::showNotification)
     ).apply(instance, CarvedPaleOakWoodCraftingRecipe::new)
   );
 
+  private static final StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull CarvedPaleOakWoodCraftingRecipe> STREAM_CODEC = StreamCodec.unit(null);
+
+  public static final RecipeSerializer<@NotNull CarvedPaleOakWoodCraftingRecipe> SERIALIZER = new RecipeSerializer<>(CarvedPaleOakWoodCraftingRecipe.MAP_CODEC, CarvedPaleOakWoodCraftingRecipe.STREAM_CODEC) ;
+
   private static ShapedRecipePattern pattern() {
     return ShapedRecipePattern.of(
-        Map.of('#', Ingredient.of(SMBBlocks.CARVED_PALE_OAK_LOG.get())),
-        "##",
-        "##");
+      Map.of('#', Ingredient.of(SMBBlocks.CARVED_PALE_OAK_LOG.get())),
+      "##",
+      "##");
   }
 
-  private static ItemStack result() {
-    return new ItemStack(SMBBlocks.CARVED_PALE_OAK_WOOD.get(), 3);
+  private static ItemStackTemplate result() {
+    return new ItemStackTemplate(SMBBlocks.CARVED_PALE_OAK_WOOD.get().asItem(), 3);
   }
-
-  public static final RecipeSerializer<CarvedPaleOakWoodCraftingRecipe> SERIALIZER = new RecipeSerializer<>() {
-    @Override
-    public MapCodec<CarvedPaleOakWoodCraftingRecipe> codec() {
-      return CODEC;
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public StreamCodec<RegistryFriendlyByteBuf, CarvedPaleOakWoodCraftingRecipe> streamCodec() {
-      return StreamCodec.unit(null);
-    }
-  };
 
   public CarvedPaleOakWoodCraftingRecipe(boolean showNotification) {
-    super("carved_wood", CraftingBookCategory.BUILDING, pattern(), result(), showNotification);
+    super(new CommonInfo(showNotification), new CraftingBookInfo(CraftingBookCategory.BUILDING, "carved_wood"), pattern(), result());
   }
 
   @Override
@@ -77,8 +69,9 @@ public class CarvedPaleOakWoodCraftingRecipe extends ShapedRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingInput input, HolderLookup.Provider access) {
-    ItemStack out = super.assemble(input, access);
+  public ItemStack assemble(CraftingInput input) {
+    ItemStack out = super.assemble(input);
+
     int phase = RotatedCarvedPaleOakBlock.MIN_MOON_PHASE;
     for (int i = 0; i < input.size(); i++) {
       ItemStack stack = input.getItem(i);
@@ -95,7 +88,7 @@ public class CarvedPaleOakWoodCraftingRecipe extends ShapedRecipe {
   }
 
   @Override
-  public RecipeSerializer<? extends CarvedPaleOakWoodCraftingRecipe> getSerializer() {
-    return SERIALIZER;
+  public RecipeSerializer<@NotNull ShapedRecipe> getSerializer() {
+    return ShapedRecipe.SERIALIZER;
   }
 }

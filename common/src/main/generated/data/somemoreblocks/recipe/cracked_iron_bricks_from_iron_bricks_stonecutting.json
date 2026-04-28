@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "somemoreblocks:iron_bricks",
   "result": {
-    "count": 1,
     "id": "somemoreblocks:cracked_iron_bricks"
   }
 }

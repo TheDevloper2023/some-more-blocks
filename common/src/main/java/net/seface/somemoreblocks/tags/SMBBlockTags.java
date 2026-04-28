@@ -1,29 +1,36 @@
 package net.seface.somemoreblocks.tags;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.seface.somemoreblocks.SomeMoreBlocks;
+import org.jetbrains.annotations.NotNull;
 
 public final class SMBBlockTags {
-  public static final TagKey<Block> BIG_LILY_PAD_REPLACEABLE = SomeMoreBlocks.tagKey(Registries.BLOCK, "big_lily_pad_replaceable");
-  public static final TagKey<Block> CACTUS_PLANTS_PLACEABLE = SomeMoreBlocks.tagKey(Registries.BLOCK, "cactus_plants_placeable");
-  public static final TagKey<Block> CATTAIL_ON_WATER_PLACEABLE = SomeMoreBlocks.tagKey(Registries.BLOCK, "cattail_on_water_placeable");
-  public static final TagKey<Block> CATTAIL_PLACEABLE = SomeMoreBlocks.tagKey(Registries.BLOCK, "cattail_placeable");
-  public static final TagKey<Block> CONCRETE_BRICKS = SomeMoreBlocks.tagKey(Registries.BLOCK, "concrete_bricks");
-  public static final TagKey<Block> CONCRETE_TILES = SomeMoreBlocks.tagKey(Registries.BLOCK, "concrete_tiles");
-  public static final TagKey<Block> DUNE_GRASS_PLACEABLE = SomeMoreBlocks.tagKey(Registries.BLOCK, "dune_grass_placeable");
-  public static final TagKey<Block> FUNGUS_COLONIES = SomeMoreBlocks.tagKey(Registries.BLOCK, "fungus_colonies");
-  public static final TagKey<Block> LEAF_LITTERS = SomeMoreBlocks.tagKey(Registries.BLOCK, "leaf_litters");
-  public static final TagKey<Block> LEAF_LITTERS_PLACEABLE = SomeMoreBlocks.tagKey(Registries.BLOCK, "leaf_litters_placeable");
-  public static final TagKey<Block> LEAF_LITTER_REPLACEABLE = SomeMoreBlocks.tagKey(Registries.BLOCK, "leaf_litter_replaceable");
-  public static final TagKey<Block> LUMINOUS_FLOWER_REPLACEABLE = SomeMoreBlocks.tagKey(Registries.BLOCK, "luminous_flower_replaceable");
-  public static final TagKey<Block> MUSHROOM_COLONIES = SomeMoreBlocks.tagKey(Registries.BLOCK, "mushroom_colonies");
-  public static final TagKey<Block> MUSHROOM_COLONY_PLACEABLE = SomeMoreBlocks.tagKey(Registries.BLOCK, "mushroom_colony_placeable");
-  public static final TagKey<Block> NETHER_CLOVER_PLACEABLE = SomeMoreBlocks.tagKey(Registries.BLOCK, "nether_clover_placeable");
-  public static final TagKey<Block> SHINGLES = SomeMoreBlocks.tagKey(Registries.BLOCK, "shingles");
-  public static final TagKey<Block> TERRACOTTA_BRICKS = SomeMoreBlocks.tagKey(Registries.BLOCK, "terracotta_bricks");
-  public static final TagKey<Block> TERRACOTTA_TILES = SomeMoreBlocks.tagKey(Registries.BLOCK, "terracotta_tiles");
+  public static final TagKey<@NotNull Block> BIG_LILY_PAD_REPLACEABLE = register("big_lily_pad_replaceable");
+  public static final TagKey<@NotNull Block> CACTUS_PLANTS_PLACEABLE = register("cactus_plants_placeable");
+  public static final TagKey<@NotNull Block> CATTAIL_ON_WATER_PLACEABLE = register("cattail_on_water_placeable");
+  public static final TagKey<@NotNull Block> CATTAIL_PLACEABLE = register("cattail_placeable");
+  public static final TagKey<@NotNull Block> CONCRETE_BRICKS = register("concrete_bricks");
+  public static final TagKey<@NotNull Block> CONCRETE_TILES = register("concrete_tiles");
+  public static final TagKey<@NotNull Block> DUNE_GRASS_PLACEABLE = register("dune_grass_placeable");
+  public static final TagKey<@NotNull Block> FUNGUS_COLONIES = register("fungus_colonies");
+  public static final TagKey<@NotNull Block> LEAF_LITTERS = register("leaf_litters");
+  public static final TagKey<@NotNull Block> LEAF_LITTERS_PLACEABLE = register("leaf_litters_placeable");
+  public static final TagKey<@NotNull Block> LEAF_LITTER_REPLACEABLE = register("leaf_litter_replaceable");
+  public static final TagKey<@NotNull Block> LUMINOUS_FLOWER_REPLACEABLE = register("luminous_flower_replaceable");
+  public static final TagKey<@NotNull Block> MUSHROOM_COLONIES = register("mushroom_colonies");
+  public static final TagKey<@NotNull Block> MUSHROOM_COLONY_PLACEABLE = register("mushroom_colony_placeable");
+  public static final TagKey<@NotNull Block> NETHER_CLOVER_PLACEABLE = register("nether_clover_placeable");
+  public static final TagKey<@NotNull Block> SHINGLES = register("shingles");
+  public static final TagKey<@NotNull Block> TERRACOTTA_BRICKS = register("terracotta_bricks");
+  public static final TagKey<@NotNull Block> TERRACOTTA_TILES = register("terracotta_tiles");
 
   public static void init() {}
+
+  private static TagKey<@NotNull Block> register(String path) {
+    return SomeMoreBlocks.tagKey(Registries.BLOCK, path);
+  }
 }

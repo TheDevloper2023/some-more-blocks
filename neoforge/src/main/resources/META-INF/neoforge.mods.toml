@@ -1,23 +1,24 @@
 modLoader="javafml"
-loaderVersion="${neoforge_loader_version_range}"
+loaderVersion="[1,)"
+license = "${project_license}"
 
-license = "${license}"
 issueTrackerURL = "${issues_tracker_url}"
 showAsResourcePack = false
 
 [[mods]]
 modId = "${mod_id}"
-version = "${version}"
+version = "${mod_version}"
 displayName = "${mod_name}"
-displayURL= "${main_url}"
+description = '''
+${mod_description}
+In loving memory of §d${ng_name}§f.
+'''
+authors = "${mod_author}"
+displayURL= "${website_url}"
+
 logoFile = "assets/${mod_id}/icon_64.png"
 credits = "Everyone who contributed on Crowdin and GitHub."
-authors = "${mod_author}"
 updateJSONURL = "${source_url}/raw/refs/heads/${minecraft_version}/.github/neoforge-update.json"
-description = '''
-${description}
-In loving memory of §dNicolle Gama§f.
-'''
 
 [[mixins]]
 config = "${mod_id}.mixins.json"
@@ -25,21 +26,16 @@ config = "${mod_id}.mixins.json"
 [[mixins]]
 config = "${mod_id}.neoforge.mixins.json"
 
-
-#[[accessTransformers]]
-#file="META-INF/accesstransformer.cfg"
-
 [[dependencies.${mod_id}]]
 modId = "neoforge"
 type = "required"
-versionRange= " ${neoforge_version_range}"
+versionRange= "[${neoforge_version},)"
 ordering = "NONE"
 side = "BOTH"
-
 
 [[dependencies.${mod_id}]]
 modId = "minecraft"
 type = "required"
-versionRange = "${minecraft_version_range}"
+versionRange = "[${minecraft_version},)"
 ordering = "NONE"
 side = "BOTH"

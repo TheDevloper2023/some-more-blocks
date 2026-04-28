@@ -1,34 +1,36 @@
 plugins {
-  id "fabric-loom" version "${fabric_loom_version}"
-  id "com.github.node-gradle.node" version "3.5.0"
+  id 'some-more-loaders'
+  id "net.fabricmc.fabric-loom" version "${fabric_loom}"
 }
 
-node {
-  version = '20.0.0'
-  npmVersion = '10.0.0'
-  download = true
-}
+def common  = project(":common")
 
-repositories {}
+repositories {
+  maven {
+    name = "Terraformers"
+    url = uri("https://maven.terraformersmc.com/")
+  }
+}
 
 dependencies {
   minecraft "com.mojang:minecraft:${minecraft_version}"
-  mappings loom.officialMojangMappings()
 
-  modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-  modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-  modImplementation "net.sefacestudios:extended-fabric-datagen:${minecraft_version}-${ext_fabric_datagen_version}"
+  implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+  implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}+${minecraft_version}"
+  implementation "net.sefacestudios:extended-fabric-datagen:${extended_fabric_datagen}"
+  implementation("com.terraformersmc:modmenu:${modmenu_version}")
 }
 
 fabricApi {
   configureDataGeneration((settings) -> {
     settings.client = true
-    settings.getOutputDirectory().set(project(":common").file("src/main/generated"))
+    settings.getOutputDirectory().set(common.file("src/main/generated"))
   })
 }
 
+
 loom {
-  var File AW = project(":common").file("src/main/resources/${mod_id}.accesswidener")
+  var File AW = common.file("src/main/resources/${mod_id}.accesswidener")
   if (AW.exists()) {
     accessWidenerPath.set(AW)
   }
@@ -39,28 +41,19 @@ loom {
 
   runs {
     configureEach {
-      setConfigName("Fabric ${it.name.capitalize()}")
       ideConfigGenerated(true)
-      runDir("run")
     }
 
     client {
       client()
+      name "Fabric Client"
+      runDir "runs/client"
     }
 
     server {
       server()
+      name "Fabric Server"
+      runDir "runs/server"
     }
   }
-}
-
-task applyLocalizations(type: NodeTask) {
-  dependsOn("runDatagen")
-
-  script = project(":common").file('../scripts/langfy/main.mjs')
-  args = [minecraft_version, mod_name]
-}
-
-tasks.named("runDatagen") {
-  finalizedBy tasks.named("applyLocalizations")
 }

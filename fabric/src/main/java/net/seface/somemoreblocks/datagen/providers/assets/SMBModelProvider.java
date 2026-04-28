@@ -3,16 +3,19 @@ package net.seface.somemoreblocks.datagen.providers.assets;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.math.Quadrant;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ItemModelOutput;
 import net.minecraft.client.data.models.MultiVariant;
-import net.minecraft.client.data.models.blockstates.*;
+import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.block.model.Variant;
-import net.minecraft.client.renderer.block.model.VariantMutator;
+import net.minecraft.client.renderer.block.dispatch.Variant;
+import net.minecraft.client.renderer.block.dispatch.VariantMutator;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.Identifier;
@@ -21,7 +24,6 @@ import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.seface.somemoreblocks.block.properties.QuadDirection;
 import net.seface.somemoreblocks.datagen.providers.assets.providers.CarvedWoodBlockProvider;
@@ -35,7 +37,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 
 public class SMBModelProvider extends FabricModelProvider {
@@ -46,7 +47,7 @@ public class SMBModelProvider extends FabricModelProvider {
   public Consumer<BlockModelDefinitionGenerator> blockStateOutput;
   public ItemModelOutput itemModelOutput;
 
-  public SMBModelProvider(FabricDataOutput output) {
+  public SMBModelProvider(FabricPackOutput output) {
     super(output);
     this.registerSoulSandstoneAsTexturedModel();
   }
@@ -71,7 +72,7 @@ public class SMBModelProvider extends FabricModelProvider {
     this.carvedWoodProvider(SMBBlocks.CARVED_CRIMSON_STEM.get()).log(SMBBlocks.CARVED_CRIMSON_STEM.get(), Blocks.STRIPPED_CRIMSON_STEM).wood(SMBBlocks.CARVED_CRIMSON_HYPHAE.get());
     this.carvedWoodProvider(SMBBlocks.CARVED_WARPED_STEM.get()).log(SMBBlocks.CARVED_WARPED_STEM.get(), Blocks.STRIPPED_WARPED_STEM).wood(SMBBlocks.CARVED_WARPED_HYPHAE.get());
     this.carvedWoodProvider(SMBBlocks.CARVED_CHERRY_LOG.get()).log(SMBBlocks.CARVED_CHERRY_LOG.get(), Blocks.STRIPPED_CHERRY_LOG).wood(SMBBlocks.CARVED_CHERRY_WOOD.get());
-    this.carvedWoodProvider(SMBBlocks.CARVED_PALE_OAK_LOG.get()).logByMoonPhase(SMBBlocks.CARVED_PALE_OAK_LOG.get(), Blocks.STRIPPED_PALE_OAK_LOG).woodByMoonPhase(SMBBlocks.CARVED_PALE_OAK_WOOD.get());
+    this.carvedWoodProvider(SMBBlocks.CARVED_PALE_OAK_LOG.get()).logByMoonPhase(SMBBlocks.CARVED_PALE_OAK_LOG.get(), Blocks.STRIPPED_PALE_OAK_LOG).woodByMoonPhase(SMBBlocks.CARVED_PALE_OAK_WOOD.get(), SMBBlocks.CARVED_PALE_OAK_LOG.get());
     this.carvedWoodProvider(SMBBlocks.CARVED_BAMBOO_BLOCK.get()).log(SMBBlocks.CARVED_BAMBOO_BLOCK.get(), Blocks.STRIPPED_BAMBOO_BLOCK);
     gen.createMushroomBlock(SMBBlocks.CARVED_MUSHROOM_STEM.get());
     gen.createRotatedPillarWithHorizontalVariant(SMBBlocks.STONE_PILLAR.get(), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
@@ -325,7 +326,7 @@ public class SMBModelProvider extends FabricModelProvider {
    * @param toBlock The block to be generated.
    */
   public final void copyCutCopperModel(Block fromBlock, Block toBlock) {
-    TextureMapping mapping = TextureMapping.cube(fromBlock).put(TextureSlot.ALL, ModelLocationUtils.getModelLocation(fromBlock));
+    TextureMapping mapping = TextureMapping.cube(fromBlock).put(TextureSlot.ALL, TextureMapping.getBlockTexture(fromBlock));
     MultiVariant variant = BlockModelGenerators.plainVariant(ModelTemplates.CUBE_ALL.create(ModelLocationUtils.getModelLocation(toBlock), mapping, this.modelOutput));
 
     this.itemModelOutput.copy(fromBlock.asItem(), toBlock.asItem());
@@ -339,8 +340,8 @@ public class SMBModelProvider extends FabricModelProvider {
    * @param toBlock The block to be generated.
    */
   public final void copyCopperPillarModel(Block fromBlock, Block toBlock) {
-    TextureMapping mappingY = TextureMapping.column(fromBlock).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(fromBlock));
-    TextureMapping mappingXZ = TextureMapping.column(fromBlock).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(fromBlock));
+    TextureMapping mappingY = TextureMapping.column(fromBlock).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(fromBlock));
+    TextureMapping mappingXZ = TextureMapping.column(fromBlock).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(fromBlock));
 
     MultiVariant variantY = BlockModelGenerators.plainVariant(ModelTemplates.CUBE_COLUMN.create(ModelLocationUtils.getModelLocation(toBlock), mappingY, this.modelOutput));
     MultiVariant variantXZ = BlockModelGenerators.plainVariant(ModelTemplates.CUBE_COLUMN_HORIZONTAL.createWithSuffix(toBlock, "_horizontal", mappingXZ, this.modelOutput));
@@ -367,16 +368,16 @@ public class SMBModelProvider extends FabricModelProvider {
    */
   public final void createRedstoneSeaLantern(Block bottomAndTopBlock, Block block) {
     TextureMapping mappingOff = TextureMapping.cube(block)
-      .put(TextureSlot.UP, ModelLocationUtils.getModelLocation(bottomAndTopBlock))
-      .put(TextureSlot.DOWN, ModelLocationUtils.getModelLocation(bottomAndTopBlock));
+      .put(TextureSlot.UP, TextureMapping.getBlockTexture(bottomAndTopBlock))
+      .put(TextureSlot.DOWN, TextureMapping.getBlockTexture(bottomAndTopBlock));
 
     TextureMapping mappingOn = TextureMapping.cube(block)
-      .put(TextureSlot.UP, ModelLocationUtils.getModelLocation(bottomAndTopBlock))
-      .put(TextureSlot.DOWN, ModelLocationUtils.getModelLocation(bottomAndTopBlock))
-      .put(TextureSlot.NORTH, ModelLocationUtils.getModelLocation(block).withSuffix("_on_north"))
-      .put(TextureSlot.SOUTH, ModelLocationUtils.getModelLocation(block).withSuffix("_on_south"))
-      .put(TextureSlot.EAST, ModelLocationUtils.getModelLocation(block).withSuffix("_on_east"))
-      .put(TextureSlot.WEST, ModelLocationUtils.getModelLocation(block).withSuffix("_on_west"));
+      .put(TextureSlot.UP, TextureMapping.getBlockTexture(bottomAndTopBlock))
+      .put(TextureSlot.DOWN, TextureMapping.getBlockTexture(bottomAndTopBlock))
+      .put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block, "_on_north"))
+      .put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block, "_on_south"))
+      .put(TextureSlot.EAST, TextureMapping.getBlockTexture(block, "_on_east"))
+      .put(TextureSlot.WEST, TextureMapping.getBlockTexture(block, "_on_west"));
 
     MultiVariant variantOff = BlockModelGenerators.plainVariant(ModelTemplates.CUBE.create(block, mappingOff, this.modelOutput));
     MultiVariant variantOn = BlockModelGenerators.plainVariant(ModelTemplates.CUBE.createWithSuffix(block, "_on", mappingOn, this.modelOutput));
@@ -391,7 +392,7 @@ public class SMBModelProvider extends FabricModelProvider {
    */
   public final void createPottedTinyCactus(Block plantBlock, Block pottedBlock) {
     BlockModelGenerators.PlantType plantType = BlockModelGenerators.PlantType.NOT_TINTED;
-    TextureMapping mapping = plantType.getPlantTextureMapping(plantBlock).put(TextureSlot.PLANT, ModelLocationUtils.getModelLocation(pottedBlock));
+    TextureMapping mapping = plantType.getPlantTextureMapping(plantBlock).put(TextureSlot.PLANT, TextureMapping.getBlockTexture(pottedBlock));
 
     MultiVariant variant = BlockModelGenerators.plainVariant(plantType.getCrossPot().create(pottedBlock, mapping, this.modelOutput));
 
@@ -433,7 +434,7 @@ public class SMBModelProvider extends FabricModelProvider {
       String suffix = "_" + i;
 
       TextureMapping textureMapping = TextureMapping.defaultTexture(block)
-        .copyAndUpdate(TextureSlot.TEXTURE, ModelLocationUtils.getModelLocation(block).withSuffix(suffix));
+        .copyAndUpdate(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(block, suffix));
 
       Identifier model = SMBModelTemplates.SQUARE_HORIZONTAL.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
 
@@ -477,9 +478,9 @@ public class SMBModelProvider extends FabricModelProvider {
       String suffix = i == 0 ? "" : "_" + (i - 1);
       int threshold = i == 0 ? 0 : units * i;
 
-      Identifier identifier = ModelLocationUtils.getModelLocation(item).withSuffix(suffix);
-      TextureMapping textureMapping = TextureMapping.layer0(item).put(TextureSlot.LAYER0, identifier);
-      Identifier itemModel = ModelTemplates.FLAT_ITEM.create(identifier, textureMapping, this.modelOutput);
+      Material material = TextureMapping.getItemTexture(item, suffix);
+      TextureMapping textureMapping = TextureMapping.layer0(item).put(TextureSlot.LAYER0, material);
+      Identifier itemModel = ModelTemplates.FLAT_ITEM.create(material.sprite(), textureMapping, this.modelOutput);
 
       overrides[i] = ItemModelUtils.override(ItemModelUtils.plainModel(itemModel), threshold);
     }
@@ -529,12 +530,12 @@ public class SMBModelProvider extends FabricModelProvider {
    */
   public final void createEmissiveDoublePlantWithDefaultItem(Block block) {
     TextureMapping topTextureMapping = TextureMapping.crossEmissive(block)
-      .put(TextureSlot.CROSS, ModelLocationUtils.getModelLocation(block, "_top"))
-      .put(TextureSlot.CROSS_EMISSIVE, ModelLocationUtils.getModelLocation(block, "_top_emissive"));
+      .put(TextureSlot.CROSS, TextureMapping.getBlockTexture(block, "_top"))
+      .put(TextureSlot.CROSS_EMISSIVE, TextureMapping.getBlockTexture(block, "_top_emissive"));
 
     TextureMapping bottomTextureMapping = TextureMapping.crossEmissive(block)
-      .put(TextureSlot.CROSS, ModelLocationUtils.getModelLocation(block, "_bottom"))
-      .put(TextureSlot.CROSS_EMISSIVE, ModelLocationUtils.getModelLocation(block, "_bottom_emissive"));
+      .put(TextureSlot.CROSS, TextureMapping.getBlockTexture(block, "_bottom"))
+      .put(TextureSlot.CROSS_EMISSIVE, TextureMapping.getBlockTexture(block, "_bottom_emissive"));
 
     Identifier topModel = ModelTemplates.CROSS_EMISSIVE.createWithSuffix(block, "_top", topTextureMapping, this.modelOutput);
     Identifier bottomModel = ModelTemplates.CROSS_EMISSIVE.createWithSuffix(block, "_bottom", bottomTextureMapping, this.modelOutput);
@@ -574,7 +575,7 @@ public class SMBModelProvider extends FabricModelProvider {
       String suffix = maxVariations > 1 ? "_" + i : "";
 
       TextureMapping textureMapping = TextureMapping.defaultTexture(block)
-        .copyAndUpdate(TextureSlot.TEXTURE, ModelLocationUtils.getModelLocation(block).withSuffix(suffix));
+        .copyAndUpdate(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(block, suffix));
 
       Identifier model = SMBModelTemplates.SQUARE_HORIZONTAL.createWithSuffix(block, suffix, textureMapping, this.modelOutput);
 
@@ -601,7 +602,7 @@ public class SMBModelProvider extends FabricModelProvider {
    */
   public final void createChiseledSoulSandstone(Block block) {
     TextureMapping textureMapping = TextureMapping.column(block)
-      .put(TextureSlot.END, TextureMapping.getBlockTexture(SMBBlocks.SOUL_SANDSTONE.get()).withSuffix("_top"))
+      .put(TextureSlot.END, TextureMapping.getBlockTexture(SMBBlocks.SOUL_SANDSTONE.get(), "_top"))
       .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(SMBBlocks.CHISELED_SOUL_SANDSTONE.get()));
 
     Identifier model = ModelTemplates.CUBE_COLUMN.create(block, textureMapping, this.modelOutput);

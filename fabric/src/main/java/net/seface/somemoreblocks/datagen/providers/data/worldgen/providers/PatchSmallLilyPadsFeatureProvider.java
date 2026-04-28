@@ -1,46 +1,45 @@
 package net.seface.somemoreblocks.datagen.providers.data.worldgen.providers;
 
 import net.minecraft.core.Vec3i;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.material.Fluids;
+import net.seface.somemoreblocks.datagen.providers.data.worldgen.utils.RandomPatchPlacementUtils;
 import net.seface.somemoreblocks.registries.SMBBlocks;
 import net.seface.somemoreblocks.tags.SMBConfiguredFeature;
 import net.seface.somemoreblocks.tags.SMBPlacedFeature;
-import net.sefacestudios.datagen_extras.provider.worldgen.FeatureProvider;
+import net.sefacestudios.datagen_extras.provider.worldgen.feature.FeatureProvider;
 
 import java.util.List;
 
-public class PatchSmallLilyPadsFeatureProvider extends FeatureProvider<RandomPatchConfiguration> {
+public class PatchSmallLilyPadsFeatureProvider extends FeatureProvider<SimpleBlockConfiguration> {
 
   public PatchSmallLilyPadsFeatureProvider() {
-    super(Feature.RANDOM_PATCH);
+    super(Feature.SIMPLE_BLOCK);
   }
 
   @Override
   protected void placed(List<PlacementModifier> modifier) {
-    modifier.add(CountPlacement.of(4));
     modifier.add(InSquarePlacement.spread());
     modifier.add(HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG));
     modifier.add(BiomeFilter.biome());
+    RandomPatchPlacementUtils.add(modifier, 10, 7, 3);
+    modifier.add(BlockPredicateFilter.forPredicate(
+      BlockPredicate.allOf(
+        BlockPredicate.matchesBlocks(Vec3i.ZERO, Blocks.AIR),
+        BlockPredicate.matchesFluids(Vec3i.ZERO.below(), Fluids.WATER)
+      )
+    ));
   }
 
   @Override
-  protected RandomPatchConfiguration configuration() {
-    return new RandomPatchConfiguration(5, 7, 3,
-      PlacementUtils.filtered(
-        Feature.SIMPLE_BLOCK,
-        new SimpleBlockConfiguration(SimpleStateProvider.simple(SMBBlocks.SMALL_LILY_PADS.get())),
-        BlockPredicate.allOf(
-          BlockPredicate.matchesBlocks(Vec3i.ZERO, Blocks.AIR),
-          BlockPredicate.matchesFluids(Vec3i.ZERO.below(), Fluids.WATER))));
+  protected SimpleBlockConfiguration configuration() {
+    return new SimpleBlockConfiguration(SimpleStateProvider.simple(SMBBlocks.SMALL_LILY_PADS.get()));
   }
 
   public static <T extends FeatureProvider<?>> T create() {

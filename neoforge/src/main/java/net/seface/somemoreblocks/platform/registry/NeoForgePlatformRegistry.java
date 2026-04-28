@@ -2,7 +2,6 @@ package net.seface.somemoreblocks.platform.registry;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.serialization.Codec;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -23,7 +22,6 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seface.somemoreblocks.SomeMoreBlocks;
-import net.seface.somemoreblocks.recipe.CarvedPaleOakWoodCraftingRecipe;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -107,7 +105,7 @@ public class NeoForgePlatformRegistry implements PlatformRegistry {
 
   @Override
   public void setBlockRenderType(Block block, ChunkSectionLayer renderType) {
-    ItemBlockRenderTypes.setRenderLayer(block, renderType);
+    //ItemBlockRenderTypes.setRenderLayer(block, renderType);
   }
 
   @Override

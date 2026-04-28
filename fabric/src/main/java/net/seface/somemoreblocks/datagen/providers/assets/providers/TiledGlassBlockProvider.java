@@ -10,8 +10,6 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
-import net.minecraft.client.renderer.block.model.VariantMutator;
-import net.minecraft.client.renderer.block.model.multipart.Condition;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.Block;
@@ -76,19 +74,5 @@ public class TiledGlassBlockProvider {
       .with(new ConditionBuilder().term(BlockStateProperties.EAST, false), mvNoSideAlt)
       .with(new ConditionBuilder().term(BlockStateProperties.SOUTH, false), mvNoSideAlt.with(BlockModelGenerators.Y_ROT_90))
       .with(new ConditionBuilder().term(BlockStateProperties.WEST, false), mvNoSide.with(BlockModelGenerators.Y_ROT_270));
-
-
-    /*return variant
-      .with(VariantMutator.MODEL.withValue(post))
-
-
-      .with(Condition.condition().term(BlockStateProperties.NORTH, true), Variant.variant().with(VariantProperties.MODEL, side))
-      .with(Condition.condition().term(BlockStateProperties.EAST, true), Variant.variant().with(VariantProperties.MODEL, side).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-      .with(Condition.condition().term(BlockStateProperties.SOUTH, true), Variant.variant() .with(VariantProperties.MODEL, sideAlt))
-      .with(Condition.condition().term(BlockStateProperties.WEST, true), Variant.variant().with(VariantProperties.MODEL, sideAlt).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-      .with(Condition.condition().term(BlockStateProperties.NORTH, false), Variant.variant().with(VariantProperties.MODEL, noSide))
-      .with(Condition.condition().term(BlockStateProperties.EAST, false), Variant.variant().with(VariantProperties.MODEL, noSideAlt))
-      .with(Condition.condition().term(BlockStateProperties.SOUTH, false), Variant.variant().with(VariantProperties.MODEL, noSideAlt).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-      .with(Condition.condition().term(BlockStateProperties.WEST, false), Variant.variant().with(VariantProperties.MODEL, noSide).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270));*/
   }
 }

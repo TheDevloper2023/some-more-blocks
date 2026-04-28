@@ -1,19 +1,20 @@
 package net.seface.somemoreblocks.datagen.providers.data.tags;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.seface.somemoreblocks.tags.SMBBiomeTags;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class SMBBiomeTagProvider extends FabricTagProvider<Biome> {
-  public SMBBiomeTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> future) {
+public class SMBBiomeTagProvider extends FabricTagsProvider<@NotNull Biome> {
+  public SMBBiomeTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
     super(output, Registries.BIOME, future);
   }
 

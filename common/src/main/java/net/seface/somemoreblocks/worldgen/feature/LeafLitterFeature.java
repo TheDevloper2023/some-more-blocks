@@ -32,7 +32,7 @@ public class LeafLitterFeature extends Feature<SimpleLeafLitterBlockConfiguratio
     RandomSource random = ctx.random();
     BlockPos.MutableBlockPos mPos = new BlockPos.MutableBlockPos();
 
-    BlockState leafLitter = ctx.config().toPlace().getState(random, pos);
+    BlockState leafLitter = ctx.config().toPlace().getState(level, random, pos);
     float placeChance = ctx.config().chance();
     int xzSpread = ctx.config().xzSpread();
     List<ResourceKey<Block>> parents = ctx.config().parents();
