@@ -70,6 +70,23 @@ public interface PlatformRegistry {
     return this.registerWeatheringCopperBlock(path, collectionIds, factory, properties, true);
   }
 
+  default WeatheringCopperCollection.ByState<@NotNull PlatformRegistryObject<Block>> registerWeatheringByState(
+    WeatheringCopperCollection.ByState<@NotNull BlockItemId> ids,
+    BiFunction<WeatheringCopper.WeatherState, BlockBehaviour.Properties, Block> factory,
+    Function<WeatheringCopper.WeatherState, BlockBehaviour.Properties> properties,
+    boolean registerBlockItem
+  ) {
+    return WeatheringCopperCollection.zipMap(
+      ids,
+      WeatheringCopperCollection.STATES,
+      (id, weatherState) -> this.registerBlock(
+        id.block().identifier().getPath(),
+        () -> factory.apply(weatherState, properties.apply(weatherState).setId(id.block())),
+        registerBlockItem
+      )
+    );
+  }
+
   /**
    * Main method to register an Item.
    * @param path The identifier path.

@@ -59,7 +59,7 @@
                       0,
                       1
                     ],
-                    "tag": "minecraft:logs_that_burn"
+                    "tag": "minecraft:logs"
                   },
                   {
                     "type": "minecraft:matching_blocks",
@@ -138,7 +138,7 @@
                           0,
                           1
                         ],
-                        "tag": "minecraft:logs_that_burn"
+                        "tag": "minecraft:logs"
                       },
                       {
                         "type": "minecraft:matching_blocks",
@@ -217,7 +217,7 @@
                           0,
                           -1
                         ],
-                        "tag": "minecraft:logs_that_burn"
+                        "tag": "minecraft:logs"
                       },
                       {
                         "type": "minecraft:matching_blocks",
@@ -296,7 +296,7 @@
                           0,
                           0
                         ],
-                        "tag": "minecraft:logs_that_burn"
+                        "tag": "minecraft:logs"
                       },
                       {
                         "type": "minecraft:matching_blocks",
@@ -375,7 +375,7 @@
                           0,
                           0
                         ],
-                        "tag": "minecraft:logs_that_burn"
+                        "tag": "minecraft:logs"
                       },
                       {
                         "type": "minecraft:matching_blocks",

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:yellow_terracotta",
+  "result": {
+    "id": "somemoreblocks:yellow_shingles_slab"
+  }
+}

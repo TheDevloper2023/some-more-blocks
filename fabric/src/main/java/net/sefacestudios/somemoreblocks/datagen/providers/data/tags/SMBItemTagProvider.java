@@ -136,6 +136,7 @@ public class SMBItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         SMBBlockItemIds.POLISHED_BASALT_BRICK_SLAB, SMBBlockItemIds.POLISHED_BASALT_TILE_SLAB,
         SMBBlockItemIds.CORRUPTED_POLISHED_BLACKSTONE_BRICK_SLAB
       )
+      .addAll(SMBBlockItemIds.DYED_SHINGLES_STAIRS.map(BlockItemId::item))
       .setReplace(false);
 
     this.builder(BlockItemTags.SMALL_FLOWERS.item())

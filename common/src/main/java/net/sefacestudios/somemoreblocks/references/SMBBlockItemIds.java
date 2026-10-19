@@ -483,6 +483,7 @@ public class SMBBlockItemIds {
   public static final BlockItemId REEDS = create("reeds");
   public static final BlockItemId SHINGLES_STAIRS = create("shingles_stairs");
   public static final ColorCollection<@NotNull BlockItemId> DYED_SHINGLES_STAIRS = createColored("shingles_stairs");
+  public static final ColorCollection<@NotNull BlockItemId> DYED_SHINGLES_SLAB = createColored("shingles_slab");
   public static final ColorCollection<@NotNull BlockItemId> CHECKERED_TILES = createColored("checkered_tiles");
   public static final BlockItemId SNOW_FIREFLY_BUSH = create("snow_firefly_bush");
   public static final BlockItemId SNOW_BUSH = create("snow_bush");
@@ -547,6 +548,7 @@ public class SMBBlockItemIds {
   public static final BlockItemId BAMBOO_BOARDS = create("bamboo_boards");
   public static final BlockItemId BAMBOO_BOARDS_SLAB = create("bamboo_boards_slab");
   public static final BlockItemId BAMBOO_BOARDS_STAIRS = create("bamboo_boards_stairs");
+  public static final BlockItemId REED_BALE = create("reed_bale");
 
   private static BlockItemId create(final String blockName, final String itemName) {
     return BlockItemId.create(SomeMoreBlocks.id(blockName), SomeMoreBlocks.id(itemName));

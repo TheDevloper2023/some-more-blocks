@@ -2,7 +2,6 @@ package net.sefacestudios.somemoreblocks.registries;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -17,6 +16,7 @@ import net.sefacestudios.somemoreblocks.platform.PlatformServices;
 import net.sefacestudios.somemoreblocks.platform.registry.PlatformRegistryObject;
 import net.sefacestudios.somemoreblocks.references.SMBBlockItemIds;
 import net.sefacestudios.somemoreblocks.tags.SMBBlockTags;
+import org.jetbrains.annotations.NotNull;
 
 public class SMBBlocks {
   public static final PlatformRegistryObject<Block> AZALEA_LEAF_LITTER = PlatformServices.REGISTRY.registerBlock("azalea_leaf_litter", () -> new LeafLitterBlock(Block.Properties.ofFullCopy(Blocks.AZALEA_LEAVES).sound(SoundType.LEAF_LITTER).replaceable().noCollision().instabreak().setId(SomeMoreBlocks.key(Registries.BLOCK, "azalea_leaf_litter"))), false);
@@ -344,14 +344,14 @@ public class SMBBlocks {
   public static final PlatformRegistryObject<Block> CRACKED_PURPUR_TILES = PlatformServices.REGISTRY.registerBlock("cracked_purpur_tiles", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK).setId(SomeMoreBlocks.key(Registries.BLOCK, "cracked_purpur_tiles"))));
 
   public static final PlatformRegistryObject<Block> TERRACOTTA_BRICKS = PlatformServices.REGISTRY.registerBlock("terracotta_bricks", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).setId(SomeMoreBlocks.key(Registries.BLOCK, "terracotta_bricks"))));
-  public static final PlatformRegistryObject<ColorCollection<Block>> DYED_TERRACOTTA_BRICKS = PlatformServices.REGISTRY.registerColoredBlock("dyed_terracotta_bricks", SMBBlockItemIds.DYED_TERRACOTTA_BRICKS, (_d, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.DYED_TERRACOTTA.pick(color)));
+  public static final PlatformRegistryObject<ColorCollection<@NotNull Block>> DYED_TERRACOTTA_BRICKS = PlatformServices.REGISTRY.registerColoredBlock("dyed_terracotta_bricks", SMBBlockItemIds.DYED_TERRACOTTA_BRICKS, (_d, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.DYED_TERRACOTTA.pick(color)));
 
   public static final PlatformRegistryObject<Block> TERRACOTTA_TILES = PlatformServices.REGISTRY.registerBlock("terracotta_tiles", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).setId(SomeMoreBlocks.key(Registries.BLOCK, "terracotta_tiles"))));
-  public static final PlatformRegistryObject<ColorCollection<Block>> DYED_TERRACOTTA_TILES = PlatformServices.REGISTRY.registerColoredBlock("dyed_terracotta_tiles", SMBBlockItemIds.DYED_TERRACOTTA_TILES, (_d, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.DYED_TERRACOTTA.pick(color)));
+  public static final PlatformRegistryObject<ColorCollection<@NotNull Block>> DYED_TERRACOTTA_TILES = PlatformServices.REGISTRY.registerColoredBlock("dyed_terracotta_tiles", SMBBlockItemIds.DYED_TERRACOTTA_TILES, (_d, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.DYED_TERRACOTTA.pick(color)));
 
   // TODO: Create a ColorCollection registry
-  public static final PlatformRegistryObject<ColorCollection<Block>> CONCRETE_BRICKS = PlatformServices.REGISTRY.registerColoredBlock("concrete_bricks", SMBBlockItemIds.CONCRETE_BRICKS, (_d, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.CONCRETE.pick(color)));
-  public static final PlatformRegistryObject<ColorCollection<Block>> CONCRETE_TILES = PlatformServices.REGISTRY.registerColoredBlock("concrete_tiles", SMBBlockItemIds.CONCRETE_TILES, (_d, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.CONCRETE.pick(color)));
+  public static final PlatformRegistryObject<ColorCollection<@NotNull Block>> CONCRETE_BRICKS = PlatformServices.REGISTRY.registerColoredBlock("concrete_bricks", SMBBlockItemIds.CONCRETE_BRICKS, (_d, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.CONCRETE.pick(color)));
+  public static final PlatformRegistryObject<ColorCollection<@NotNull Block>> CONCRETE_TILES = PlatformServices.REGISTRY.registerColoredBlock("concrete_tiles", SMBBlockItemIds.CONCRETE_TILES, (_d, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.CONCRETE.pick(color)));
 
   public static final PlatformRegistryObject<Block> SOUL_SANDSTONE = PlatformServices.REGISTRY.registerBlock("soul_sandstone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SANDSTONE).setId(SomeMoreBlocks.key(Registries.BLOCK, "soul_sandstone"))));
   public static final PlatformRegistryObject<Block> SOUL_SANDSTONE_SLAB = PlatformServices.REGISTRY.registerBlock("soul_sandstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMBBlocks.SOUL_SANDSTONE.get()).setId(SomeMoreBlocks.key(Registries.BLOCK, "soul_sandstone_slab"))));
@@ -423,8 +423,13 @@ public class SMBBlocks {
   public static final PlatformRegistryObject<Block> CRACKED_CUT_AMETHYST = PlatformServices.REGISTRY.registerBlock("cracked_cut_amethyst", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.AMETHYST_BLOCK).setId(SomeMoreBlocks.key(Registries.BLOCK, "cracked_cut_amethyst"))));
   public static final PlatformRegistryObject<Block> AMETHYST_PILLAR = PlatformServices.REGISTRY.registerBlock("amethyst_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.AMETHYST_BLOCK).setId(SomeMoreBlocks.key(Registries.BLOCK, "amethyst_pillar"))));
 
-  public static final PlatformRegistryObject<Block> SHINGLES = PlatformServices.REGISTRY.registerBlock("shingles", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(Constants.SHINGLES_DESTROY_TIME, Constants.SHINGLES_EXPLOSION_RESISTANCE).setId(SomeMoreBlocks.key(Registries.BLOCK, "shingles")).sound(SoundType.DEEPSLATE_TILES)));
-  public static final PlatformRegistryObject<ColorCollection<Block>> DYED_SHINGLES = PlatformServices.REGISTRY.registerColoredBlock("dyed_shingles", SMBBlockItemIds.DYED_SHINGLES, (_d, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(SMBBlocks.SHINGLES.get()).mapColor(color));
+  public static final PlatformRegistryObject<Block> SHINGLES = PlatformServices.REGISTRY.registerBlock("shingles", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(Constants.SHINGLES_DESTROY_TIME, Constants.SHINGLES_EXPLOSION_RESISTANCE).sound(SoundType.DEEPSLATE_TILES).setId(SomeMoreBlocks.key(Registries.BLOCK, "shingles"))));
+  public static final PlatformRegistryObject<Block> SHINGLES_STAIRS = PlatformServices.REGISTRY.registerBlock("shingles_stairs", () -> new StairBlock(SMBBlocks.SHINGLES.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(SMBBlocks.SHINGLES.get()).setId(SomeMoreBlocks.key(Registries.BLOCK, "shingles_stairs"))));
+  public static final PlatformRegistryObject<Block> SHINGLES_SLAB = PlatformServices.REGISTRY.registerBlock("shingles_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMBBlocks.SHINGLES.get()).setId(SomeMoreBlocks.key(Registries.BLOCK, "shingles_slab"))));
+
+  public static final PlatformRegistryObject<ColorCollection<@NotNull Block>> DYED_SHINGLES = PlatformServices.REGISTRY.registerColoredBlock("dyed_shingles", SMBBlockItemIds.DYED_SHINGLES, (_d, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(SMBBlocks.SHINGLES.get()).mapColor(color));
+  public static final PlatformRegistryObject<ColorCollection<@NotNull Block>> DYED_SHINGLES_STAIRS = PlatformServices.REGISTRY.registerColoredBlock("dyed_shingles_stairs", SMBBlockItemIds.DYED_SHINGLES_STAIRS, (dyeColor, props) -> new StairBlock(SMBBlocks.DYED_SHINGLES.get().pick(dyeColor).defaultBlockState(), props), (color) -> BlockBehaviour.Properties.ofFullCopy(SMBBlocks.DYED_SHINGLES.get().pick(color)));
+  public static final PlatformRegistryObject<ColorCollection<@NotNull Block>> DYED_SHINGLES_SLAB = PlatformServices.REGISTRY.registerColoredBlock("dyed_shingles_slab", SMBBlockItemIds.DYED_SHINGLES_SLAB, (dyeColor, props) -> new SlabBlock(props), (color) -> BlockBehaviour.Properties.ofFullCopy(SMBBlocks.DYED_SHINGLES.get().pick(color)));
 
   public static final PlatformRegistryObject<Block> OAK_MOSAIC = PlatformServices.REGISTRY.registerBlock("oak_mosaic", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).setId(SomeMoreBlocks.key(Registries.BLOCK, "oak_mosaic"))));
   public static final PlatformRegistryObject<Block> OAK_MOSAIC_SLAB = PlatformServices.REGISTRY.registerBlock("oak_mosaic_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMBBlocks.OAK_MOSAIC.get()).setId(SomeMoreBlocks.key(Registries.BLOCK, "oak_mosaic_slab"))));
@@ -484,9 +489,9 @@ public class SMBBlocks {
   public static final PlatformRegistryObject<Block> CRACKED_BRICKS = PlatformServices.REGISTRY.registerBlock("cracked_bricks", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).setId(SomeMoreBlocks.key(Registries.BLOCK, "cracked_bricks"))));
   public static final PlatformRegistryObject<Block> TILED_GLASS = PlatformServices.REGISTRY.registerBlock("tiled_glass", () -> new TransparentBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).setId(SomeMoreBlocks.key(Registries.BLOCK, "tiled_glass"))));
   public static final PlatformRegistryObject<Block> TILED_TINTED_GLASS = PlatformServices.REGISTRY.registerBlock("tiled_tinted_glass", () -> new TintedGlassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TINTED_GLASS).setId(SomeMoreBlocks.key(Registries.BLOCK, "tiled_tinted_glass"))));
-  public static final PlatformRegistryObject<ColorCollection<Block>> STAINED_TILED_GLASS = PlatformServices.REGISTRY.registerColoredBlock("stained_tiled_glass", SMBBlockItemIds.STAINED_TILED_GLASS, StainedGlassBlock::new, (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.STAINED_GLASS.pick(color)));
+  public static final PlatformRegistryObject<ColorCollection<@NotNull Block>> STAINED_TILED_GLASS = PlatformServices.REGISTRY.registerColoredBlock("stained_tiled_glass", SMBBlockItemIds.STAINED_TILED_GLASS, StainedGlassBlock::new, (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.STAINED_GLASS.pick(color)));
   public static final PlatformRegistryObject<Block> TILED_GLASS_PANE = PlatformServices.REGISTRY.registerBlock("tiled_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS_PANE).setId(SomeMoreBlocks.key(Registries.BLOCK, "tiled_glass_pane"))));
-  public static final PlatformRegistryObject<ColorCollection<Block>> STAINED_TILED_GLASS_PANE = PlatformServices.REGISTRY.registerColoredBlock("stained_tiled_glass_pane", SMBBlockItemIds.STAINED_TILED_GLASS_PANE, StainedGlassPaneBlock::new, (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.STAINED_GLASS.pick(color)));
+  public static final PlatformRegistryObject<ColorCollection<@NotNull Block>> STAINED_TILED_GLASS_PANE = PlatformServices.REGISTRY.registerColoredBlock("stained_tiled_glass_pane", SMBBlockItemIds.STAINED_TILED_GLASS_PANE, StainedGlassPaneBlock::new, (color) -> BlockBehaviour.Properties.ofFullCopy(Blocks.STAINED_GLASS.pick(color)));
   public static final PlatformRegistryObject<Block> BONE_BRICKS = PlatformServices.REGISTRY.registerBlock("bone_bricks", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BONE_BLOCK).setId(SomeMoreBlocks.key(Registries.BLOCK, "bone_bricks"))));
   public static final PlatformRegistryObject<Block> BONE_BRICK_SLAB = PlatformServices.REGISTRY.registerBlock("bone_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMBBlocks.BONE_BRICKS.get()).setId(SomeMoreBlocks.key(Registries.BLOCK, "bone_brick_slab"))));
   public static final PlatformRegistryObject<Block> BONE_BRICK_STAIRS = PlatformServices.REGISTRY.registerBlock("bone_brick_stairs", () -> new StairBlock(BONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(SMBBlocks.BONE_BRICKS.get()).setId(SomeMoreBlocks.key(Registries.BLOCK, "bone_brick_stairs"))));
@@ -569,10 +574,7 @@ public class SMBBlocks {
   public static final PlatformRegistryObject<Block> CLOVER = PlatformServices.REGISTRY.registerBlock("clover", () -> new CloverBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS).replaceable().noCollision().setId(SomeMoreBlocks.key(Registries.BLOCK, "clover"))), false);
   public static final PlatformRegistryObject<Block> NETHER_CLOVER = PlatformServices.REGISTRY.registerBlock("nether_clover", () -> new CloverBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART).replaceable().noCollision().setId(SomeMoreBlocks.key(Registries.BLOCK, "nether_clover"))), false);
 
-  public static final PlatformRegistryObject<Block> SHINGLES_STAIRS = PlatformServices.REGISTRY.registerBlock("shingles_stairs", () -> new StairBlock(SMBBlocks.SHINGLES.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(Constants.SHINGLES_DESTROY_TIME, Constants.SHINGLES_EXPLOSION_RESISTANCE).setId(SomeMoreBlocks.key(Registries.BLOCK, "shingles_stairs")).sound(SoundType.DEEPSLATE_TILES)));
-  public static final PlatformRegistryObject<ColorCollection<Block>> DYED_SHINGLES_STAIRS = PlatformServices.REGISTRY.registerColoredBlock("dyed_shingles_stairs", SMBBlockItemIds.DYED_SHINGLES_STAIRS, (dyeColor, props) -> new StairBlock(SMBBlocks.DYED_SHINGLES.get().pick(dyeColor).defaultBlockState(), props), (color) -> BlockBehaviour.Properties.ofFullCopy(SMBBlocks.DYED_SHINGLES.get().pick(color)));
-
-  public static final PlatformRegistryObject<ColorCollection<Block>> CHECKERED_TILES = PlatformServices.REGISTRY.registerColoredBlock("checkered_tiles", SMBBlockItemIds.CHECKERED_TILES, (dyeColor, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(SMBBlocks.DYED_SHINGLES.get().pick(color)));
+  public static final PlatformRegistryObject<ColorCollection<@NotNull Block>> CHECKERED_TILES = PlatformServices.REGISTRY.registerColoredBlock("checkered_tiles", SMBBlockItemIds.CHECKERED_TILES, (dyeColor, props) -> new Block(props), (color) -> BlockBehaviour.Properties.ofFullCopy(SMBBlocks.DYED_SHINGLES.get().pick(color)));
 
   public static final PlatformRegistryObject<Block> PALE_MUSHROOM = PlatformServices.REGISTRY.registerBlock("pale_mushroom", () -> new PaleMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BROWN_MUSHROOM).mapColor(Blocks.PALE_OAK_PLANKS.defaultMapColor()).setId(SomeMoreBlocks.key(Registries.BLOCK, "pale_mushroom"))), false);
   public static final PlatformRegistryObject<Block> POTTED_PALE_MUSHROOM = PlatformServices.REGISTRY.registerFlowerPotBlock(SMBBlocks.PALE_MUSHROOM);
@@ -650,6 +652,7 @@ public class SMBBlocks {
   public static final PlatformRegistryObject<Block> BAMBOO_BOARDS = PlatformServices.REGISTRY.registerBlock("bamboo_boards", () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS).setId(SomeMoreBlocks.key(Registries.BLOCK, "bamboo_boards"))));
   public static final PlatformRegistryObject<Block> BAMBOO_BOARDS_SLAB = PlatformServices.REGISTRY.registerBlock("bamboo_boards_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMBBlocks.BAMBOO_BOARDS.get()).setId(SomeMoreBlocks.key(Registries.BLOCK, "bamboo_boards_slab"))));
   public static final PlatformRegistryObject<Block> BAMBOO_BOARDS_STAIRS = PlatformServices.REGISTRY.registerBlock("bamboo_boards_stairs", () -> new StairBlock(BAMBOO_BOARDS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(SMBBlocks.BAMBOO_BOARDS.get()).setId(SomeMoreBlocks.key(Registries.BLOCK, "bamboo_boards_stairs"))));
+  public static final PlatformRegistryObject<Block> REED_BALE = PlatformServices.REGISTRY.registerBlock("reed_bale", () -> new HayBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.HAY_BLOCK).mapColor(MapColor.COLOR_LIGHT_GREEN).setId(SomeMoreBlocks.key(Registries.BLOCK, "reed_bale"))));
 
   public static void init() {
     if (PlatformServices.HELPER.getEnvironment().equals(PlatformEnvironment.DEVELOPMENT)) {

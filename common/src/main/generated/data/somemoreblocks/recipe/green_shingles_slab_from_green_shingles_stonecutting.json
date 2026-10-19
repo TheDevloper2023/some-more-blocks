@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "somemoreblocks:green_shingles",
+  "result": {
+    "count": 2,
+    "id": "somemoreblocks:green_shingles_slab"
+  }
+}

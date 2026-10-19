@@ -7,11 +7,11 @@
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_weathered_cracked_cut_copper": {
+    "has_waxed_exposed_cracked_cut_copper": {
       "conditions": {
         "items": [
           {
-            "items": "somemoreblocks:weathered_cracked_cut_copper"
+            "items": "somemoreblocks:waxed_exposed_cracked_cut_copper"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_weathered_cracked_cut_copper"
+      "has_waxed_exposed_cracked_cut_copper"
     ]
   ],
   "rewards": {

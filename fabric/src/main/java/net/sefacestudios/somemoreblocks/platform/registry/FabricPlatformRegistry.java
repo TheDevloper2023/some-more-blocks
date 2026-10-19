@@ -45,27 +45,27 @@ public class FabricPlatformRegistry implements PlatformRegistry {
     return new FabricRegistryObject<>(identifier, () -> instance);
   }
 
+  @Override
   public PlatformRegistryObject<ColorCollection<@NotNull Block>> registerColoredBlock(
     String path,
-    ColorCollection<@NotNull BlockItemId> collectionBlockIds,
+    ColorCollection<@NotNull BlockItemId> collectionIds,
     BiFunction<DyeColor, BlockBehaviour.Properties, Block> factory,
     Function<DyeColor, BlockBehaviour.Properties> properties,
     boolean registerBlockItem
   ) {
-    ColorCollection<@NotNull Block> blocks = ColorCollection.registerBlocks(
-      collectionBlockIds,
-      (id, blockFactory, blockProperties) -> this.registerBlock(
+    ColorCollection<@NotNull PlatformRegistryObject<Block>> registryObjects = ColorCollection.zipMap(
+      collectionIds,
+      ColorCollection.VALUES,
+      (id, color) -> this.registerBlock(
         id.block().identifier().getPath(),
-        () -> blockFactory.apply(blockProperties),
+        () -> factory.apply(color, properties.apply(color).setId(id.block())),
         registerBlockItem
-      ).get(),
-      factory,
-      (dyeColor) -> properties.apply(dyeColor).setId(collectionBlockIds.pick(dyeColor).block())
+      )
     );
 
     return new FabricRegistryObject<>(
       SomeMoreBlocks.id(path),
-      () -> blocks
+      () -> registryObjects.map(PlatformRegistryObject::get)
     );
   }
 
@@ -77,19 +77,12 @@ public class FabricPlatformRegistry implements PlatformRegistry {
     Function<WeatheringCopper.WeatherState, BlockBehaviour.Properties> properties,
     boolean registerBlockItem
   ) {
-    WeatheringCopperCollection<@NotNull Block> blocks = WeatheringCopperCollection.registerBlocks(
-      collectionBlockIds,
-      (id, blockFactory, blockProperties) -> this.registerBlock(
-        id.block().identifier().getPath(),
-        () -> blockFactory.apply(blockProperties.setId(id.block())),
-        registerBlockItem
-      ).get(),
-      factory,
-      (weatherState, blockProperties) -> (Block & WeatheringCopper) factory.apply(weatherState, blockProperties),
-      properties
+    WeatheringCopperCollection<@NotNull PlatformRegistryObject<Block>> registryObjects = new WeatheringCopperCollection<>(
+      this.registerWeatheringByState(collectionBlockIds.weathering(), factory, properties, registerBlockItem),
+      this.registerWeatheringByState(collectionBlockIds.waxed(), factory, properties, registerBlockItem)
     );
 
-    return new FabricRegistryObject<>(SomeMoreBlocks.id(path), () -> blocks);
+    return new SimpleRegistryObject<>(SomeMoreBlocks.id(path), () -> registryObjects.map(PlatformRegistryObject::get));
   }
 
   @Override

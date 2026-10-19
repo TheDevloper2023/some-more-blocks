@@ -25,22 +25,28 @@ import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ColorCollection;
 import net.minecraft.world.level.block.StainedGlassBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.sefacestudios.somemoreblocks.block.properties.QuadDirection;
 import net.sefacestudios.somemoreblocks.datagen.providers.assets.providers.CarvedWoodProvider;
 import net.sefacestudios.somemoreblocks.datagen.providers.assets.providers.TiledGlassBlockProvider;
 import net.sefacestudios.somemoreblocks.item.LeavesBucketItem;
 import net.sefacestudios.somemoreblocks.item.properties.numeric.BucketVolumeProperty;
 import net.sefacestudios.somemoreblocks.registries.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SMBModelProvider extends FabricModelProvider {
   private BlockModelGenerators blockModelGenerators;
@@ -49,6 +55,11 @@ public class SMBModelProvider extends FabricModelProvider {
   public BiConsumer<Identifier, ModelInstance> modelOutput;
   public Consumer<BlockModelDefinitionGenerator> blockStateOutput;
   public ItemModelOutput itemModelOutput;
+
+  private static final Set<BlockFamily> SHOULD_NOT_GENERATE_STAIRS = Stream.concat(
+    Stream.of(SMBBlockFamilies.SHINGLES),
+    SMBBlockFamilies.DYED_SHINGLES.asList().stream()
+  ).collect(Collectors.toUnmodifiableSet());
 
   public SMBModelProvider(FabricPackOutput output) {
     super(output);
@@ -146,7 +157,7 @@ public class SMBModelProvider extends FabricModelProvider {
       gen.createRotatedPillarWithHorizontalVariant(SMBBlocks.COPPER_PILLAR.get().weathering().pick(state), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
     });
 
-    SMBBlocks.CRACKED_CUT_COPPER.get().forEach(gen::createTrivialCube);
+    SMBBlocks.CRACKED_CUT_COPPER.get().weathering().forEach(gen::createTrivialCube);
 
     WeatheringCopper.WeatherState.forEach((state) -> {
       this.copyCutCopperModel(SMBBlocks.CRACKED_CUT_COPPER.get().weathering().pick(state), SMBBlocks.CRACKED_CUT_COPPER.get().waxed().pick(state));
@@ -165,6 +176,7 @@ public class SMBModelProvider extends FabricModelProvider {
     this.soulSandstoneFamily(SMBBlocks.CUT_SOUL_SANDSTONE.get()).generateFor(SMBBlockFamilies.CUT_SOUL_SANDSTONE);
     gen.createRotatedPillarWithHorizontalVariant(SMBBlocks.SNOW_PILLAR.get(), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
     gen.createRotatedPillarWithHorizontalVariant(SMBBlocks.ICE_PILLAR.get(), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
+    gen.createRotatedPillarWithHorizontalVariant(SMBBlocks.REED_BALE.get(), TexturedModel.COLUMN, TexturedModel.COLUMN_HORIZONTAL);
 
     /* More Colored Blocks */
     this.tiledGlassProvider(SMBBlocks.TILED_GLASS.get()).fullBlock().pane(SMBBlocks.TILED_GLASS_PANE.get(), Blocks.GLASS_PANE);
@@ -184,6 +196,9 @@ public class SMBModelProvider extends FabricModelProvider {
     SMBBlocks.DYED_TERRACOTTA_TILES.get().forEach(gen::createTrivialCube);
     SMBBlocks.CONCRETE_BRICKS.get().forEach(gen::createTrivialCube);
     SMBBlocks.CONCRETE_TILES.get().forEach(gen::createTrivialCube);
+
+
+    this.createShinglesBlocks();
 
     /* More Natural Blocks */
     this.createTinyCactusWithFlowerPot(SMBBlocks.TINY_CACTUS.get(), SMBBlocks.POTTED_TINY_CACTUS.get(), BlockModelGenerators.PlantType.NOT_TINTED);
@@ -641,6 +656,107 @@ public class SMBModelProvider extends FabricModelProvider {
       if (!entry.getValue().shouldGenerateModel()) continue;
       this.blockModelGenerators.family(entry.getKey()).generateFor(entry.getValue());
     }
+  }
+
+  private void createShinglesBlocks() {
+    Block shingles = SMBBlocks.SHINGLES.get();
+    TextureMapping mapping = TextureMapping.cube(shingles);
+
+    this.blockModelGenerators.createTrivialCube(shingles);
+    this.createShinglesStairs(SMBBlocks.SHINGLES_STAIRS.get(), mapping);
+    this.createShinglesSlab(SMBBlocks.SHINGLES_SLAB.get(), mapping);
+
+    ColorCollection.VALUES.forEach((color) -> {
+      Block dyedBase = SMBBlocks.DYED_SHINGLES.get().pick(color);
+      TextureMapping dyedMapping = TextureMapping.cube(dyedBase);
+
+      this.blockModelGenerators.createTrivialCube(dyedBase);
+      this.createShinglesStairs(SMBBlocks.DYED_SHINGLES_STAIRS.get().pick(color), dyedMapping);
+      this.createShinglesSlab(SMBBlocks.DYED_SHINGLES_SLAB.get().pick(color), dyedMapping);
+    });
+  }
+
+  public final void createShinglesStairs(Block stairs, TextureMapping mapping) {
+    Identifier straightModel = SMBModelTemplates.UNLOCKED_STAIRS_STRAIGHT.create(stairs, mapping, this.modelOutput);
+
+    MultiVariant inner = BlockModelGenerators.plainVariant(SMBModelTemplates.UNLOCKED_STAIRS_INNER.create(stairs, mapping, this.modelOutput));
+    MultiVariant straight = BlockModelGenerators.plainVariant(straightModel);
+    MultiVariant outer = BlockModelGenerators.plainVariant(SMBModelTemplates.UNLOCKED_STAIRS_OUTER.create(stairs, mapping, this.modelOutput));
+
+    this.blockStateOutput.accept(createUnlockedStairs(stairs, inner, straight, outer));
+    this.blockModelGenerators.registerSimpleItemModel(stairs.asItem(), straightModel);
+  }
+
+  public void createShinglesSlab(Block slab, TextureMapping mapping) {
+    Identifier bottomModel = ModelTemplates.SLAB_BOTTOM.create(slab, mapping, this.modelOutput);
+
+    MultiVariant bottom = BlockModelGenerators.plainVariant(bottomModel);
+    MultiVariant top = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_TOP.create(slab, mapping, this.modelOutput));
+    MultiVariant doubleSlab = BlockModelGenerators.plainVariant(ModelTemplates.CUBE_COLUMN.createWithOverride(slab, "_double", mapping, this.modelOutput));
+
+    this.blockStateOutput.accept(BlockModelGenerators.createSlab(slab, bottom, top, doubleSlab));
+    this.blockModelGenerators.registerSimpleItemModel(slab.asItem(), bottomModel);
+  }
+
+  public static BlockModelDefinitionGenerator createUnlockedStairs(
+    Block block,
+    MultiVariant inner,
+    MultiVariant straight,
+    MultiVariant outer
+  ) {
+    PropertyDispatch.C3<@NotNull MultiVariant, @NotNull Direction, @NotNull Half, @NotNull StairsShape> dispatch =
+      PropertyDispatch.initial(
+        BlockStateProperties.HORIZONTAL_FACING,
+        BlockStateProperties.HALF,
+        BlockStateProperties.STAIRS_SHAPE
+      );
+
+    for (Half half : Half.values()) {
+      for (Direction facing : Direction.Plane.HORIZONTAL) {
+        for (StairsShape shape : StairsShape.values()) {
+          MultiVariant variant = switch (shape) {
+            case STRAIGHT -> straight;
+            case INNER_LEFT, INNER_RIGHT -> inner;
+            case OUTER_LEFT, OUTER_RIGHT -> outer;
+          };
+
+          int rotation = switch (facing) {
+            case EAST -> 0;
+            case SOUTH -> 90;
+            case WEST -> 180;
+            case NORTH -> 270;
+            default -> throw new IllegalStateException(
+              "Unexpected facing: " + facing
+            );
+          };
+
+          if (half == Half.BOTTOM) {
+            if (shape == StairsShape.INNER_LEFT ||
+              shape == StairsShape.OUTER_LEFT) {
+              rotation = (rotation + 270) % 360;
+            }
+          } else {
+            variant = variant.with(BlockModelGenerators.X_ROT_180);
+
+            if (shape == StairsShape.INNER_RIGHT ||
+              shape == StairsShape.OUTER_RIGHT) {
+              rotation = (rotation + 90) % 360;
+            }
+          }
+
+          variant = switch (rotation) {
+            case 90 -> variant.with(BlockModelGenerators.Y_ROT_90);
+            case 180 -> variant.with(BlockModelGenerators.Y_ROT_180);
+            case 270 -> variant.with(BlockModelGenerators.Y_ROT_270);
+            default -> variant;
+          };
+
+          dispatch.select(facing, half, shape, variant);
+        }
+      }
+    }
+
+    return MultiVariantGenerator.dispatch(block).with(dispatch);
   }
 
   /**

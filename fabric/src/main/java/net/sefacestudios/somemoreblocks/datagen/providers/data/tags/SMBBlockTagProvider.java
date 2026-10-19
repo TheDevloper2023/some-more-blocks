@@ -261,6 +261,7 @@ public class SMBBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         SMBBlockItemIds.POLISHED_BASALT_BRICK_SLAB, SMBBlockItemIds.POLISHED_BASALT_TILE_SLAB,
         SMBBlockItemIds.CORRUPTED_POLISHED_BASALT_BRICK_SLAB
       )
+      .addAll(SMBBlockItemIds.DYED_SHINGLES_SLAB.map(BlockItemId::block))
       .setReplace(false);
 
     this.builder(BlockTags.SMALL_FLOWERS)
@@ -603,6 +604,7 @@ public class SMBBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
     this.builder(BlockTags.MINEABLE_WITH_HOE)
       .add(SMBBlockItemIds.REDSTONE_SHROOMLIGHT)
+      .add(SMBBlockItemIds.REED_BALE)
       .setReplace(false);
 
     this.builder(BlockTags.NEEDS_STONE_TOOL)

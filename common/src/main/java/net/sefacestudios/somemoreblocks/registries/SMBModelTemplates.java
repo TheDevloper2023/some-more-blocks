@@ -23,6 +23,9 @@ public class SMBModelTemplates {
   public static final ModelTemplate TINTED_FLOWERBED_4 = create("tinted_flowerbed_4", "_4", TextureSlot.FLOWERBED, TextureSlot.STEM);
   public static final ModelTemplate DUCKWEED = create("duckweed", TextureSlot.TEXTURE);
   public static final ModelTemplate CROSS_TINTED = create("cross_tinted", TextureSlot.CROSS, TextureSlot.STEM);
+  public static final ModelTemplate UNLOCKED_STAIRS_STRAIGHT = create("unlocked_stairs", TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.BOTTOM);
+  public static final ModelTemplate UNLOCKED_STAIRS_INNER = create("unlocked_inner_stairs", "_inner", TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.BOTTOM);
+  public static final ModelTemplate UNLOCKED_STAIRS_OUTER = create("unlocked_outer_stairs", "_outer", TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.BOTTOM);
 
   public static ModelTemplate create(String path, TextureSlot ...textureSlots) {
     return create(path, "", textureSlots);

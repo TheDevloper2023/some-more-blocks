@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
-  "group": "shingles_from_terracotta",
+  "group": "shingles_from_dyed_terracotta",
   "key": {
     "#": "minecraft:black_terracotta"
   },

@@ -181,7 +181,6 @@ public class SMBBlockLootProvider extends FabricBlockLootSubProvider {
     this.dropWhenSilkTouch(SMBBlocks.TILED_GLASS.get());
     this.dropWhenSilkTouch(SMBBlocks.TILED_TINTED_GLASS.get());
 
-
     SMBBlocks.STAINED_TILED_GLASS.get().forEach(this::dropWhenSilkTouch);
 
     this.dropWhenSilkTouch(SMBBlocks.TILED_GLASS_PANE.get());
@@ -189,6 +188,7 @@ public class SMBBlockLootProvider extends FabricBlockLootSubProvider {
     this.dropSelf(SMBBlocks.SHINGLES.get());
     SMBBlocks.DYED_SHINGLES.get().forEach(this::dropSelf);
     SMBBlocks.DYED_SHINGLES_STAIRS.get().forEach(this::dropSelf);
+    SMBBlocks.DYED_SHINGLES_SLAB.get().forEach(this::dropSelf);
 
     this.dropSelf(SMBBlocks.TERRACOTTA_BRICKS.get());
     SMBBlocks.DYED_TERRACOTTA_BRICKS.get().forEach(this::dropSelf);
@@ -197,6 +197,7 @@ public class SMBBlockLootProvider extends FabricBlockLootSubProvider {
     SMBBlocks.DYED_TERRACOTTA_TILES.get().forEach(this::dropSelf);
     SMBBlocks.CONCRETE_BRICKS.get().forEach(this::dropSelf);
     SMBBlocks.CONCRETE_TILES.get().forEach(this::dropSelf);
+    this.dropSelf(SMBBlocks.REED_BALE.get());
 
     /* More Natural Blocks */
     this.dropSelf(SMBBlocks.TINY_CACTUS.get());

@@ -8,7 +8,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ColorCollection;
-import net.minecraft.world.level.block.WeatheringCopperCollection;
 import net.sefacestudios.somemoreblocks.Constants;
 import net.sefacestudios.somemoreblocks.SomeMoreBlocks;
 import net.sefacestudios.somemoreblocks.platform.PlatformEnvironment;
@@ -583,6 +582,8 @@ public class SMBCreativeTabs {
         registerColorCollection(entry, SMBBlocks.DYED_SHINGLES.get());
         entry.accept(SMBBlocks.SHINGLES_STAIRS.get());
         registerColorCollection(entry, SMBBlocks.DYED_SHINGLES_STAIRS.get());
+        entry.accept(SMBBlocks.SHINGLES_SLAB.get());
+        registerColorCollection(entry, SMBBlocks.DYED_SHINGLES_SLAB.get());
         registerColorCollection(entry, SMBBlocks.CHECKERED_TILES.get());
         registerColorCollection(entry, SMBBlocks.DYED_TERRACOTTA_BRICKS.get());
         entry.accept(SMBBlocks.TERRACOTTA_TILES.get());
@@ -593,7 +594,7 @@ public class SMBCreativeTabs {
 
   public static final PlatformRegistryObject<CreativeModeTab> MORE_NATURAL_BLOCKS = PlatformServices.REGISTRY.registerCreativeModeTab("more_natural_blocks", CreativeModeTab.Row.TOP, 2,
     (builder) -> builder
-      .icon(() -> SMBBlocks.RED_LARK_LARKSPUR.get().asItem().getDefaultInstance())
+      .icon(() -> SMBBlocks.REED_BALE.get().asItem().getDefaultInstance())
       .title(Component.translatable("itemGroup.somemoreblocks.someMoreNaturalBlocks"))
       .displayItems((ctx, entry) -> {
         entry.accept(SMBBlocks.TINY_CACTUS.get());
@@ -618,6 +619,7 @@ public class SMBCreativeTabs {
         entry.accept(SMBItems.AZALEA_LEAVES_BUCKET.get());
         entry.accept(SMBItems.FLOWERING_AZALEA_LEAVES_BUCKET.get());
         entry.accept(SMBItems.DRY_LEAVES_BUCKET.get());
+        entry.accept(SMBBlocks.REED_BALE.get());
         entry.accept(SMBItems.PEBBLES.get());
         entry.accept(SMBItems.CLOVER.get());
         entry.accept(SMBItems.NETHER_CLOVER.get());
@@ -673,6 +675,6 @@ public class SMBCreativeTabs {
   }
 
   private static void registerColorCollection(CreativeModeTab.Output entry, ColorCollection<@NotNull Block> colorCollection) {
-    Constants.COLOR_ORDER.forEach(((color) -> entry.accept(colorCollection.pick(color))));
+    Constants.COLOR_ORDER.forEach((color) -> entry.accept(colorCollection.pick(color)));
   }
 }
