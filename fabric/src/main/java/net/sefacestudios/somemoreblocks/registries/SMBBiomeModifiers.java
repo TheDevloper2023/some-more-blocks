@@ -1,0 +1,351 @@
+package net.sefacestudios.somemoreblocks.registries;
+
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.sefacestudios.somemoreblocks.tags.SMBBiomeTags;
+import net.sefacestudios.somemoreblocks.tags.SMBPlacedFeature;
+import org.jetbrains.annotations.NotNull;
+
+public class SMBBiomeModifiers {
+  public static void init() {
+    SMBBiomeModifiers.noneBigLilyPad();
+    SMBBiomeModifiers.patchCactusPlants();
+    SMBBiomeModifiers.patchCattail();
+    SMBBiomeModifiers.patchCattailSwamp();
+    SMBBiomeModifiers.patchCattailWater();
+    SMBBiomeModifiers.patchCattailWaterSwamp();
+    SMBBiomeModifiers.patchClover();
+    SMBBiomeModifiers.patchCrimsonFungusColony(SMBPlacedFeature.PATCH_CRIMSON_FUNGUS_COLONY);
+    SMBBiomeModifiers.patchCrimsonFungusColony(SMBPlacedFeature.SIMPLE_CRIMSON_FUNGUS_COLONY_WALL);
+    SMBBiomeModifiers.patchDuckweed();
+    SMBBiomeModifiers.patchDuckweedLushCaves();
+    SMBBiomeModifiers.patchDuckweedSwamp();
+    SMBBiomeModifiers.patchDuneGrass();
+    SMBBiomeModifiers.patchDuneGrassDesert();
+    SMBBiomeModifiers.patchLargeSnowFern();
+    SMBBiomeModifiers.patchLarkspur();
+    SMBBiomeModifiers.patchLarkspurFlowerForest();
+    SMBBiomeModifiers.patchLavender();
+    SMBBiomeModifiers.patchLuminousFlower();
+    SMBBiomeModifiers.patchNetherClover();
+    SMBBiomeModifiers.patchPaleMushroom();
+    SMBBiomeModifiers.patchPaleRoseBush();
+    SMBBiomeModifiers.patchSmallLilyPads();
+    SMBBiomeModifiers.patchSmallLilyPadsLushCaves();
+    SMBBiomeModifiers.patchSnowBush();
+    SMBBiomeModifiers.patchSnowGrass();
+    SMBBiomeModifiers.patchSprouts();
+    SMBBiomeModifiers.patchDrySprouts();
+    SMBBiomeModifiers.patchPebbles();
+    SMBBiomeModifiers.patchPebblesStony();
+    SMBBiomeModifiers.patchPebblesUnderground();
+    SMBBiomeModifiers.patchPebblesUnderwater();
+    SMBBiomeModifiers.patchWarpedFungusColony(SMBPlacedFeature.PATCH_WARPED_FUNGUS_COLONY);
+    SMBBiomeModifiers.patchWarpedFungusColony(SMBPlacedFeature.SIMPLE_WARPED_FUNGUS_COLONY_WALL);
+    SMBBiomeModifiers.simpleBrownMushroomColony(SMBPlacedFeature.PATCH_BROWN_MUSHROOM_COLONY);
+    SMBBiomeModifiers.simpleBrownMushroomColony(SMBPlacedFeature.SIMPLE_BROWN_MUSHROOM_COLONY_WALL);
+    SMBBiomeModifiers.simpleLeafLitter(SMBPlacedFeature.SIMPLE_BLOCK_AZALEA_LEAF_LITTER);
+    SMBBiomeModifiers.simpleLeafLitter(SMBPlacedFeature.SIMPLE_BLOCK_BIRCH_LEAF_LITTER);
+    SMBBiomeModifiers.simpleLeafLitter(SMBPlacedFeature.SIMPLE_BLOCK_FLOWERING_AZALEA_LEAF_LITTER);
+    SMBBiomeModifiers.simpleLeafLitter(SMBPlacedFeature.SIMPLE_BLOCK_LEAF_LITTER);
+    SMBBiomeModifiers.simpleLeafLitter(SMBPlacedFeature.SIMPLE_BLOCK_PALE_OAK_LEAF_LITTER);
+    SMBBiomeModifiers.simpleLeafLitter(SMBPlacedFeature.SIMPLE_BLOCK_SPRUCE_LEAF_LITTER);
+    SMBBiomeModifiers.simplePaleMushroomColony(SMBPlacedFeature.PATCH_PALE_MUSHROOM_COLONY);
+    SMBBiomeModifiers.simplePaleMushroomColony(SMBPlacedFeature.SIMPLE_PALE_MUSHROOM_COLONY_WALL);
+    SMBBiomeModifiers.simpleRedMushroomColony(SMBPlacedFeature.PATCH_RED_MUSHROOM_COLONY);
+    SMBBiomeModifiers.simpleRedMushroomColony(SMBPlacedFeature.SIMPLE_RED_MUSHROOM_COLONY_WALL);
+  }
+
+  private static void noneBigLilyPad() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_BIG_LILY_PAD).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.NONE_BIG_LILY_PAD
+    );
+  }
+
+  private static void patchPaleRoseBush() {
+    BiomeModifications.addFeature(
+      (ctx) -> ctx.getBiomeKey() == Biomes.PALE_GARDEN,
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_PALE_ROSE_BUSH
+    );
+  }
+
+  private static void patchCactusPlants() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_CACTUS_PLANTS).test(ctx) && ctx.getBiome().getBaseTemperature() >= 0.3F,
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_CACTUS_PLANTS
+    );
+  }
+
+  private static void patchCattail() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_CATTAIL).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_CATTAIL
+    );
+  }
+
+  private static void patchCattailWater() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_CATTAIL).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_CATTAIL_WATER
+    );
+  }
+
+  private static void patchCattailSwamp() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_SWAMP_VEGETATION).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_CATTAIL_SWAMP
+    );
+  }
+
+  private static void patchCattailWaterSwamp() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_SWAMP_VEGETATION).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_CATTAIL_WATER_SWAMP
+    );
+  }
+
+  private static void patchDuckweed() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_DUCKWEED).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_DUCKWEED
+    );
+  }
+
+  private static void patchDuckweedSwamp() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_SWAMP_VEGETATION).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_DUCKWEED_SWAMP
+    );
+  }
+
+  private static void patchDuckweedLushCaves() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.includeByKey(Biomes.LUSH_CAVES).test(ctx),
+      GenerationStep.Decoration.UNDERGROUND_DECORATION,
+      SMBPlacedFeature.PATCH_DUCKWEED_LUSH_CAVES
+    );
+  }
+
+  private static void patchClover() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_CLOVER).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_CLOVER
+    );
+  }
+
+  private static void patchNetherClover() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_NETHER_CLOVER).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_NETHER_CLOVER
+    );
+  }
+
+  private static void patchDuneGrass() {
+    BiomeModifications.addFeature(
+      (ctx) -> (BiomeSelectors.tag(BiomeTags.IS_BEACH).test(ctx)) && ctx.getBiome().getBaseTemperature() >= 0.5F,
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_DUNE_GRASS
+    );
+  }
+
+  private static void patchDuneGrassDesert() {
+    BiomeModifications.addFeature(
+      (ctx) -> (BiomeSelectors.includeByKey(Biomes.DESERT).test(ctx)),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_DUNE_GRASS_DESERT
+    );
+  }
+
+  private static void patchLuminousFlower() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_LUMINOUS_FLOWER).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_LUMINOUS_FLOWER
+    );
+  }
+
+  private static void patchSmallLilyPads() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_SMALL_LILY_PADS).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_SMALL_LILY_PADS
+    );
+  }
+
+  private static void patchSmallLilyPadsLushCaves() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.includeByKey(Biomes.LUSH_CAVES).test(ctx),
+      GenerationStep.Decoration.UNDERGROUND_DECORATION,
+      SMBPlacedFeature.PATCH_SMALL_LILY_PADS_LUSH_CAVES
+    );
+  }
+
+  private static void patchSnowBush() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_SNOW_BUSH).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_SNOW_BUSH
+    );
+  }
+
+  private static void patchSnowGrass() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_SNOW_GRASS).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_SNOW_GRASS
+    );
+  }
+
+  private static void patchPaleMushroom() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_PALE_MUSHROOM).test(ctx),
+      GenerationStep.Decoration.UNDERGROUND_DECORATION,
+      SMBPlacedFeature.PATCH_PALE_MUSHROOM
+    );
+  }
+
+  private static void patchLargeSnowFern() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_LARGE_SNOW_FERN).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_LARGE_SNOW_FERN
+    );
+  }
+
+  private static void patchLarkspur() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_LARKSPUR).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_LARKSPUR
+    );
+  }
+
+  private static void patchLarkspurFlowerForest() {
+    BiomeModifications.addFeature(
+      (ctx) -> ctx.getBiomeKey() == Biomes.FLOWER_FOREST,
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_LARKSPUR_FLOWER_FOREST
+    );
+  }
+
+  private static void patchLavender() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_LAVENDER).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_LAVENDER
+    );
+  }
+
+  private static void patchSprouts() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_SPROUTS).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_SPROUTS
+    );
+  }
+
+  private static void patchDrySprouts() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_DRY_SPROUTS).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_DRY_SPROUTS
+    );
+  }
+
+  private static void patchPebbles() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_PEBBLES).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_PEBBLES
+    );
+  }
+
+  private static void patchPebblesStony() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_PEBBLES_STONY).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_PEBBLES_STONY
+    );
+  }
+
+  private static void patchPebblesUnderground() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_PEBBLES).test(ctx),
+      GenerationStep.Decoration.UNDERGROUND_DECORATION,
+      SMBPlacedFeature.PATCH_PEBBLES_UNDERGROUND
+    );
+  }
+
+  private static void patchPebblesUnderwater() {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_PEBBLES).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      SMBPlacedFeature.PATCH_PEBBLES_UNDERWATER
+    );
+  }
+
+  private static void patchWarpedFungusColony(ResourceKey<@NotNull PlacedFeature> feature) {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.foundInTheNether().test(ctx) && BiomeSelectors.tag(SMBBiomeTags.GENERATES_WARPED_FUNGUS_COLONY).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      feature
+    );
+  }
+
+  private static void patchCrimsonFungusColony(ResourceKey<@NotNull PlacedFeature> feature) {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.foundInTheNether().test(ctx) && BiomeSelectors.tag(SMBBiomeTags.GENERATES_CRIMSON_FUNGUS_COLONY).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      feature
+    );
+  }
+
+  private static void simpleRedMushroomColony(ResourceKey<@NotNull PlacedFeature> feature) {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_RED_MUSHROOM_COLONY).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      feature
+    );
+  }
+
+  private static void simplePaleMushroomColony(ResourceKey<@NotNull PlacedFeature> feature) {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_PALE_MUSHROOM_COLONY).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      feature
+    );
+  }
+
+  private static void simpleBrownMushroomColony(ResourceKey<@NotNull PlacedFeature> feature) {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(SMBBiomeTags.GENERATES_BROWN_MUSHROOM_COLONY).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      feature
+    );
+  }
+
+  private static void simpleLeafLitter(ResourceKey<@NotNull PlacedFeature> feature) {
+    BiomeModifications.addFeature(
+      (ctx) -> BiomeSelectors.tag(BiomeTags.IS_OVERWORLD).test(ctx),
+      GenerationStep.Decoration.VEGETAL_DECORATION,
+      feature
+    );
+  }
+}

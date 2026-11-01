@@ -1,0 +1,110 @@
+{
+  "variants": {
+    "facing=east,waterlogged=false": [
+      {
+        "model": "somemoreblocks:block/pebbles_1",
+        "y": 90
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_2",
+        "y": 90
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_3",
+        "y": 90
+      }
+    ],
+    "facing=east,waterlogged=true": [
+      {
+        "model": "somemoreblocks:block/pebbles_1",
+        "y": 90
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_2",
+        "y": 90
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_3",
+        "y": 90
+      }
+    ],
+    "facing=north,waterlogged=false": [
+      {
+        "model": "somemoreblocks:block/pebbles_1"
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_2"
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_3"
+      }
+    ],
+    "facing=north,waterlogged=true": [
+      {
+        "model": "somemoreblocks:block/pebbles_1"
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_2"
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_3"
+      }
+    ],
+    "facing=south,waterlogged=false": [
+      {
+        "model": "somemoreblocks:block/pebbles_1",
+        "y": 180
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_2",
+        "y": 180
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_3",
+        "y": 180
+      }
+    ],
+    "facing=south,waterlogged=true": [
+      {
+        "model": "somemoreblocks:block/pebbles_1",
+        "y": 180
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_2",
+        "y": 180
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_3",
+        "y": 180
+      }
+    ],
+    "facing=west,waterlogged=false": [
+      {
+        "model": "somemoreblocks:block/pebbles_1",
+        "y": 270
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_2",
+        "y": 270
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_3",
+        "y": 270
+      }
+    ],
+    "facing=west,waterlogged=true": [
+      {
+        "model": "somemoreblocks:block/pebbles_1",
+        "y": 270
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_2",
+        "y": 270
+      },
+      {
+        "model": "somemoreblocks:block/pebbles_3",
+        "y": 270
+      }
+    ]
+  }
+}

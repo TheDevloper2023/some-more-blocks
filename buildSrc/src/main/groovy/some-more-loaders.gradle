@@ -13,18 +13,15 @@ tasks.named('compileJava', JavaCompile) {
   options.encoding = 'UTF-8'
 }
 
-/* Incluir resources de :common no artefato loader; assim somemoreblocks.mixins.json entra no classpath do run/dev. */
 tasks.named('processResources', ProcessResources).configure {
   duplicatesStrategy = DuplicatesStrategy.EXCLUDE
   dependsOn(common.tasks.named('processResources'))
   from(common.layout.buildDirectory.dir('resources/main'))
 }
 
-tasks.named('javadoc', Javadoc).configure {
-  source(common.sourceSets.main.allJava)
-}
-
 tasks.named('sourcesJar', Jar) {
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
   from(rootProject.file("LICENSE.md")) {
     rename { "${it}-${mod_name.replaceAll(' ', '')}" }
   }
