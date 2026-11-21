@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "somemoreblocks:block/light_gray_shingles",
+    "side": "somemoreblocks:block/light_gray_shingles"
+  }
+}

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "ingredients": [
     "somemoreblocks:pale_mushroom",
     "minecraft:bowl",

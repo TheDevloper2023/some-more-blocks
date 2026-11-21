@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "end": "somemoreblocks:block/exposed_copper_pillar_top",
-    "side": "somemoreblocks:block/exposed_copper_pillar"
+    "all": "somemoreblocks:block/exposed_copper_pillar"
   }
 }

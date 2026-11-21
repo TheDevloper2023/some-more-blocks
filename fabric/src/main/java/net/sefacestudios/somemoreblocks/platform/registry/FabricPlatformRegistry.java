@@ -6,14 +6,17 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -21,6 +24,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.sefacestudios.somemoreblocks.SomeMoreBlocks;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
@@ -38,6 +43,46 @@ public class FabricPlatformRegistry implements PlatformRegistry {
     }
 
     return new FabricRegistryObject<>(identifier, () -> instance);
+  }
+
+  @Override
+  public PlatformRegistryObject<ColorCollection<@NotNull Block>> registerColoredBlock(
+    String path,
+    ColorCollection<@NotNull BlockItemId> collectionIds,
+    BiFunction<DyeColor, BlockBehaviour.Properties, Block> factory,
+    Function<DyeColor, BlockBehaviour.Properties> properties,
+    boolean registerBlockItem
+  ) {
+    ColorCollection<@NotNull PlatformRegistryObject<Block>> registryObjects = ColorCollection.zipMap(
+      collectionIds,
+      ColorCollection.VALUES,
+      (id, color) -> this.registerBlock(
+        id.block().identifier().getPath(),
+        () -> factory.apply(color, properties.apply(color).setId(id.block())),
+        registerBlockItem
+      )
+    );
+
+    return new FabricRegistryObject<>(
+      SomeMoreBlocks.id(path),
+      () -> registryObjects.map(PlatformRegistryObject::get)
+    );
+  }
+
+  @Override
+  public PlatformRegistryObject<WeatheringCopperCollection<@NotNull Block>> registerWeatheringCopperBlock(
+    String path,
+    WeatheringCopperCollection<@NotNull BlockItemId> collectionBlockIds,
+    BiFunction<WeatheringCopper.WeatherState, BlockBehaviour.Properties, Block> factory,
+    Function<WeatheringCopper.WeatherState, BlockBehaviour.Properties> properties,
+    boolean registerBlockItem
+  ) {
+    WeatheringCopperCollection<@NotNull PlatformRegistryObject<Block>> registryObjects = new WeatheringCopperCollection<>(
+      this.registerWeatheringByState(collectionBlockIds.weathering(), factory, properties, registerBlockItem),
+      this.registerWeatheringByState(collectionBlockIds.waxed(), factory, properties, registerBlockItem)
+    );
+
+    return new SimpleRegistryObject<>(SomeMoreBlocks.id(path), () -> registryObjects.map(PlatformRegistryObject::get));
   }
 
   @Override
@@ -89,11 +134,6 @@ public class FabricPlatformRegistry implements PlatformRegistry {
       .buildAndRegister(SomeMoreBlocks.id(path));
 
     return new FabricRegistryObject<>(identifier, () -> instance);
-  }
-
-  @Override
-  public void setBlockRenderType(Block block, ChunkSectionLayer renderType) {
-    //BlockRenderLayerMap.putBlock(block, renderType);
   }
 
   @Override

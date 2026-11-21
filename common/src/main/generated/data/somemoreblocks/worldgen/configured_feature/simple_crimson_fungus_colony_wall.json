@@ -77,7 +77,7 @@
                       0,
                       1
                     ],
-                    "tag": "minecraft:crimson_stems"
+                    "tag": "minecraft:logs"
                   },
                   {
                     "type": "minecraft:matching_block_tag",
@@ -86,7 +86,7 @@
                       0,
                       1
                     ],
-                    "tag": "minecraft:warped_stems"
+                    "tag": "minecraft:logs"
                   }
                 ]
               }
@@ -174,7 +174,7 @@
                           0,
                           1
                         ],
-                        "tag": "minecraft:crimson_stems"
+                        "tag": "minecraft:logs"
                       },
                       {
                         "type": "minecraft:matching_block_tag",
@@ -183,7 +183,7 @@
                           0,
                           1
                         ],
-                        "tag": "minecraft:warped_stems"
+                        "tag": "minecraft:logs"
                       }
                     ]
                   }
@@ -271,7 +271,7 @@
                           0,
                           -1
                         ],
-                        "tag": "minecraft:crimson_stems"
+                        "tag": "minecraft:logs"
                       },
                       {
                         "type": "minecraft:matching_block_tag",
@@ -280,7 +280,7 @@
                           0,
                           -1
                         ],
-                        "tag": "minecraft:warped_stems"
+                        "tag": "minecraft:logs"
                       }
                     ]
                   }
@@ -368,7 +368,7 @@
                           0,
                           0
                         ],
-                        "tag": "minecraft:crimson_stems"
+                        "tag": "minecraft:logs"
                       },
                       {
                         "type": "minecraft:matching_block_tag",
@@ -377,7 +377,7 @@
                           0,
                           0
                         ],
-                        "tag": "minecraft:warped_stems"
+                        "tag": "minecraft:logs"
                       }
                     ]
                   }
@@ -465,7 +465,7 @@
                           0,
                           0
                         ],
-                        "tag": "minecraft:crimson_stems"
+                        "tag": "minecraft:logs"
                       },
                       {
                         "type": "minecraft:matching_block_tag",
@@ -474,7 +474,7 @@
                           0,
                           0
                         ],
-                        "tag": "minecraft:warped_stems"
+                        "tag": "minecraft:logs"
                       }
                     ]
                   }

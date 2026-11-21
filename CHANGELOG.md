@@ -1,56 +1,38 @@
-![CHANGELOG](.github/assets/titles/changelog.png)
+![CHANGELOG](https://i.imgur.com/sOwvxNe.png)
 
 This file tracks all notable changes made to the project. It includes new features, bug fixes, improvements, and other updates — version by version.
 
 > [!NOTE]
-> This changelog is only related to the versions for `Minecraft 26.1`.
+> This changelog is only related to the versions for `Minecraft 26.2`.
 > For other versions, see their respective branch or the [most recent changelog](https://github.com/Seface-Studios/some-more-blocks/blob/main/CHANGELOG.md).
 
-## 26.1.0.0 - September 17, 2026
-Updated to Minecraft 26.1.
+## 26.20.0 - October XX, 2026
+Updated to Minecraft 26.2.
 
 | Platform 	| Minimum API Version 	 |
 |:--------:	|:---------------------:|
-| Fabric   	|   \>=0.144.0      	   |
-| Forge    	|   \>=62.0.8      	    |
-| NeoForge 	| \>=26.1.0.1-beta   	  |
+| Fabric   	|   \>=0.152.1      	   |
+| Forge    	|   \>=65.0.0      	    |
+| NeoForge 	|   \>=26.2.0.57    	   |
 
 ### Added
-- Larkspur flowers
-  - Galahad Larkspur
-  - Short Galahad Larkspur
-  - Astolat Larkspur
-  - Short Astolat Larkspur
-  - Summer Skies Larkspur
-  - Short Summer Skies Larkspur
-  - Purple Larkspur
-  - Short Purple Larkspur
-  - Red Lark Larkspur
-  - Short Red Lark Larkspur
-- Duckweed
-- Lavender
-- Sprouts
-- Dry Sprouts
-- Pebbles
-- Wooden Slats
-- Wooden Boards
-- Wooden Boards Stairs
-- Wooden Boards Slabs
-
-### Changes
-- All variations of mossy blocks have been reworked.
-- All leaf litters have been reworked.
-- Tiny Cactus texture reworked.
-  - Now Tiny Cactus has 3 textures variations.
-- Tall Cactus texture reworked to match with new Tiny Cactus.
-- "More Building Blocks" creative category was renamed to "Some More Building Blocks".
-- "More Colored Blocks" creative category was renamed to "Some More Colored Blocks".
-- "More Natural Blocks" creative category was renamed to "Some More Natural Blocks".
-- "More Redstone Blocks" creative category was renamed to "Some More Redstone Blocks".
+- Reed Bale.
+- Shingles Slabs.
+- Cracked Cinnabar Bricks
+- Mossy Cinnabar Bricks
+- Cinnabar Tiles
+- Cracked Cinnabar Tiles
+- Smooth Cinnabar
+- Cinnabar Pillar
+- Cracked Sulfur Bricks
+- Mossy Sulfur Bricks
+- Sulfur Tiles
+- Cracked Sulfur Tiles
+- Smooth Sulfur
+- Sulfur Pillar
 
 ### Fix
-- Moon phases not being applied correctly to Carved Pale Oak Logs.
-- Some plants cannot be composted. [#30](https://github.com/Seface-Studios/some-more-blocks/issues/30)
+- UV rotation of Shingles Stairs.
 
 > **Note:** 
 > 

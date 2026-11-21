@@ -7,11 +7,11 @@
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_weathered_copper_bricks": {
+    "has_waxed_exposed_copper_bricks": {
       "conditions": {
         "items": [
           {
-            "items": "somemoreblocks:weathered_copper_bricks"
+            "items": "somemoreblocks:waxed_exposed_copper_bricks"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_weathered_copper_bricks"
+      "has_waxed_exposed_copper_bricks"
     ]
   ],
   "rewards": {

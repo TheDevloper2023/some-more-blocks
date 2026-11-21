@@ -16,7 +16,7 @@ In loving memory of §d${ng_name}§f.
 authors = "${mod_author}"
 displayURL= "${website_url}"
 
-logoFile = "assets/${mod_id}/icon_64.png"
+iconFile = "assets/${mod_id}/icon_64.png"
 credits = "Everyone who contributed on Crowdin and GitHub."
 updateJSONURL = "${source_url}/raw/refs/heads/${minecraft_version}/.github/neoforge-update.json"
 

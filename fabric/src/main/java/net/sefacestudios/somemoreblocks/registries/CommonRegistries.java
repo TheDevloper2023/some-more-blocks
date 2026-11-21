@@ -11,8 +11,7 @@ public class CommonRegistries {
   public static void init() {
     CommonRegistries.registerPathNodeTypes();
     CommonRegistries.registerFuels();
-    CommonRegistries.registerOxidizableBlocks();
-    CommonRegistries.registerWaxableBlocks();
+    CommonRegistries.registerWeatheringCopperBlocks();
   }
 
   private static void registerPathNodeTypes() {
@@ -34,37 +33,10 @@ public class CommonRegistries {
     });
   }
 
-  private static void registerOxidizableBlocks() {
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.COPPER_BRICKS.get(), SMBBlocks.EXPOSED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.EXPOSED_COPPER_BRICKS.get(), SMBBlocks.WEATHERED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.WEATHERED_COPPER_BRICKS.get(), SMBBlocks.OXIDIZED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.CRACKED_COPPER_BRICKS.get(), SMBBlocks.EXPOSED_CRACKED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.EXPOSED_CRACKED_COPPER_BRICKS.get(), SMBBlocks.WEATHERED_CRACKED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.WEATHERED_CRACKED_COPPER_BRICKS.get(), SMBBlocks.OXIDIZED_CRACKED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.CRACKED_CUT_COPPER.get(), SMBBlocks.EXPOSED_CRACKED_CUT_COPPER.get());
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.EXPOSED_CRACKED_CUT_COPPER.get(), SMBBlocks.WEATHERED_CRACKED_CUT_COPPER.get());
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.WEATHERED_CRACKED_CUT_COPPER.get(), SMBBlocks.OXIDIZED_CRACKED_CUT_COPPER.get());
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.COPPER_PILLAR.get(), SMBBlocks.EXPOSED_COPPER_PILLAR.get());
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.EXPOSED_COPPER_PILLAR.get(), SMBBlocks.WEATHERED_COPPER_PILLAR.get());
-    OxidizableBlocksRegistry.registerNextStage(SMBBlocks.WEATHERED_COPPER_PILLAR.get(), SMBBlocks.OXIDIZED_COPPER_PILLAR.get());
-  }
-
-  public static void registerWaxableBlocks() {
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.COPPER_BRICKS.get(), SMBBlocks.WAXED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.EXPOSED_COPPER_BRICKS.get(), SMBBlocks.WAXED_EXPOSED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.WEATHERED_COPPER_BRICKS.get(), SMBBlocks.WAXED_WEATHERED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.OXIDIZED_COPPER_BRICKS.get(), SMBBlocks.WAXED_OXIDIZED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.CRACKED_COPPER_BRICKS.get(), SMBBlocks.WAXED_CRACKED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.EXPOSED_CRACKED_COPPER_BRICKS.get(), SMBBlocks.WAXED_EXPOSED_CRACKED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.WEATHERED_CRACKED_COPPER_BRICKS.get(), SMBBlocks.WAXED_WEATHERED_CRACKED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.OXIDIZED_CRACKED_COPPER_BRICKS.get(), SMBBlocks.WAXED_OXIDIZED_CRACKED_COPPER_BRICKS.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.CRACKED_CUT_COPPER.get(), SMBBlocks.WAXED_CRACKED_CUT_COPPER.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.EXPOSED_CRACKED_CUT_COPPER.get(), SMBBlocks.WAXED_EXPOSED_CRACKED_CUT_COPPER.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.WEATHERED_CRACKED_CUT_COPPER.get(), SMBBlocks.WAXED_WEATHERED_CRACKED_CUT_COPPER.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.OXIDIZED_CRACKED_CUT_COPPER.get(), SMBBlocks.WAXED_OXIDIZED_CRACKED_CUT_COPPER.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.COPPER_PILLAR.get(), SMBBlocks.WAXED_COPPER_PILLAR.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.EXPOSED_COPPER_PILLAR.get(), SMBBlocks.WAXED_EXPOSED_COPPER_PILLAR.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.WEATHERED_COPPER_PILLAR.get(), SMBBlocks.WAXED_WEATHERED_COPPER_PILLAR.get());
-    OxidizableBlocksRegistry.registerWaxable(SMBBlocks.OXIDIZED_COPPER_PILLAR.get(), SMBBlocks.WAXED_OXIDIZED_COPPER_PILLAR.get());
+  private static void registerWeatheringCopperBlocks() {
+    OxidizableBlocksRegistry.registerWeatheringCopperBlocks(SMBBlocks.COPPER_BRICKS.get());
+    OxidizableBlocksRegistry.registerWeatheringCopperBlocks(SMBBlocks.CRACKED_COPPER_BRICKS.get());
+    OxidizableBlocksRegistry.registerWeatheringCopperBlocks(SMBBlocks.CRACKED_CUT_COPPER.get());
+    OxidizableBlocksRegistry.registerWeatheringCopperBlocks(SMBBlocks.COPPER_PILLAR.get());
   }
 }

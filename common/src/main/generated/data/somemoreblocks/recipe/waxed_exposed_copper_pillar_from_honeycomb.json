@@ -4,7 +4,7 @@
   "group": "waxed_exposed_copper_pillar",
   "ingredients": [
     "minecraft:honeycomb",
-    "somemoreblocks:exposed_copper_pillar"
+    "somemoreblocks:waxed_copper_pillar"
   ],
   "result": {
     "id": "somemoreblocks:waxed_exposed_copper_pillar"

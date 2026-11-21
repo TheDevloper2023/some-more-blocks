@@ -2,6 +2,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:terracotta",
   "result": {
+    "count": 4,
     "id": "somemoreblocks:shingles"
   }
 }

@@ -74,6 +74,22 @@
     "somemoreblocks:smooth_resin_slab",
     "somemoreblocks:polished_basalt_brick_slab",
     "somemoreblocks:polished_basalt_tile_slab",
-    "somemoreblocks:corrupted_polished_basalt_brick_slab"
+    "somemoreblocks:corrupted_polished_basalt_brick_slab",
+    "somemoreblocks:white_shingles_slab",
+    "somemoreblocks:orange_shingles_slab",
+    "somemoreblocks:magenta_shingles_slab",
+    "somemoreblocks:light_blue_shingles_slab",
+    "somemoreblocks:yellow_shingles_slab",
+    "somemoreblocks:lime_shingles_slab",
+    "somemoreblocks:pink_shingles_slab",
+    "somemoreblocks:gray_shingles_slab",
+    "somemoreblocks:light_gray_shingles_slab",
+    "somemoreblocks:cyan_shingles_slab",
+    "somemoreblocks:purple_shingles_slab",
+    "somemoreblocks:blue_shingles_slab",
+    "somemoreblocks:brown_shingles_slab",
+    "somemoreblocks:green_shingles_slab",
+    "somemoreblocks:red_shingles_slab",
+    "somemoreblocks:black_shingles_slab"
   ]
 }

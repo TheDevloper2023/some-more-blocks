@@ -7,11 +7,11 @@
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_weathered_copper_pillar": {
+    "has_waxed_exposed_copper_pillar": {
       "conditions": {
         "items": [
           {
-            "items": "somemoreblocks:weathered_copper_pillar"
+            "items": "somemoreblocks:waxed_exposed_copper_pillar"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_weathered_copper_pillar"
+      "has_waxed_exposed_copper_pillar"
     ]
   ],
   "rewards": {

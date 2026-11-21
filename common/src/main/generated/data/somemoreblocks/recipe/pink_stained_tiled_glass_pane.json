@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "stained_tiled_glass_pane",
   "key": {
     "#": "somemoreblocks:pink_stained_tiled_glass"

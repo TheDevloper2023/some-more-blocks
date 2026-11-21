@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/stairs",
+  "parent": "somemoreblocks:block/templates/unlocked_stairs",
   "textures": {
     "bottom": "somemoreblocks:block/gray_shingles",
     "side": "somemoreblocks:block/gray_shingles",

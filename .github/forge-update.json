@@ -1,4 +1,18 @@
 {
   "homepage": "https://github.com/Seface-Studios/some-more-blocks",
-  "promos": {}
+  "promos": {
+    "26.1-latest": "26.1.0.0",
+    "26.1-recommended": "26.1.0.0",
+
+    "26.2-latest": "26.2.0.0",
+    "26.2-recommended": "26.2.0.0"
+  },
+
+  "26.1": {
+    "26.1.0.0": "26.1 port"
+  },
+
+  "26.2": {
+    "26.2.0.0": "26.2 port"
+  }
 }

@@ -2,17 +2,22 @@ package net.sefacestudios.somemoreblocks.platform.registry;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.serialization.Codec;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ColorCollection;
+import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.WeatheringCopperCollection;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import net.minecraft.world.level.gamerules.GameRuleType;
@@ -29,6 +34,8 @@ import net.sefacestudios.somemoreblocks.item.FuelBlockItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
@@ -40,7 +47,6 @@ public class ForgePlatformRegistry implements PlatformRegistry {
   private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, SomeMoreBlocks.ID);
   private static final DeferredRegister<GameRule<?>> GAME_RULES = DeferredRegister.create(Registries.GAME_RULE, SomeMoreBlocks.ID);
   private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, SomeMoreBlocks.ID);
-
 
   /** Forge don't have a Fuel Registry event, so we need to be a little trick here. */
   private static final Map<String, Integer> FUEL_BLOCK_ITEMS = Map.ofEntries(
@@ -67,6 +73,46 @@ public class ForgePlatformRegistry implements PlatformRegistry {
     }
 
     return new ForgeRegistryObject<>(identifier, instance);
+  }
+
+  @Override
+  public PlatformRegistryObject<ColorCollection<@NotNull Block>> registerColoredBlock(
+    String path,
+    ColorCollection<@NotNull BlockItemId> collectionIds,
+    BiFunction<DyeColor, BlockBehaviour.Properties, Block> factory,
+    Function<DyeColor, BlockBehaviour.Properties> properties,
+    boolean registerBlockItem
+  ) {
+    ColorCollection<@NotNull PlatformRegistryObject<Block>> registryObjects = ColorCollection.zipMap(
+      collectionIds,
+      ColorCollection.VALUES,
+      (id, dyeColor) -> this.registerBlock(
+        id.block().identifier().getPath(),
+        () -> factory.apply(dyeColor, properties.apply(dyeColor).setId(id.block())),
+        registerBlockItem
+      )
+    );
+
+    return new SimpleRegistryObject<>(
+      SomeMoreBlocks.id(path),
+      () -> registryObjects.map(PlatformRegistryObject::get)
+    );
+  }
+
+  @Override
+  public PlatformRegistryObject<WeatheringCopperCollection<@NotNull Block>> registerWeatheringCopperBlock(
+    String path,
+    WeatheringCopperCollection<@NotNull BlockItemId> collectionBlockIds,
+    BiFunction<WeatheringCopper.WeatherState, BlockBehaviour.Properties, Block> factory,
+    Function<WeatheringCopper.WeatherState, BlockBehaviour.Properties> properties,
+    boolean registerBlockItem
+  ) {
+    WeatheringCopperCollection<@NotNull PlatformRegistryObject<Block>> registryObjects = new WeatheringCopperCollection<>(
+      this.registerWeatheringByState(collectionBlockIds.weathering(), factory, properties, registerBlockItem),
+      this.registerWeatheringByState(collectionBlockIds.waxed(), factory, properties, registerBlockItem)
+    );
+
+    return new SimpleRegistryObject<>(SomeMoreBlocks.id(path), () -> registryObjects.map(PlatformRegistryObject::get));
   }
 
   @Override
@@ -120,11 +166,6 @@ public class ForgePlatformRegistry implements PlatformRegistry {
     );
 
     return new ForgeRegistryObject<>(identifier, instance);
-  }
-
-  @Override
-  public void setBlockRenderType(Block block, ChunkSectionLayer renderType) {
-    /* MC 26.1+ picks cutout/translucent from sprite alpha; ItemBlockRenderTypes is gone. */
   }
 
   @Override
